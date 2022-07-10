@@ -1,6 +1,10 @@
 package com.narcis.openweatherinterview.di
 
 import com.narcis.openweatherinterview.data.api.GetNearByWeather
+import com.narcis.openweatherinterview.data.dataSource.IWeatherCurrentDataStore
+import com.narcis.openweatherinterview.data.dataSource.WeatherCurrentDataSource
+import com.narcis.openweatherinterview.data.repository.weatherRepository.GetWeatherRepository
+import com.narcis.openweatherinterview.data.repository.weatherRepository.IGetWeatherRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,7 +12,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 
@@ -39,5 +42,12 @@ class WeatherApiProvider {
         return retrofit.create(GetNearByWeather::class.java)
     }
 
+    @Provides
+    fun provideWeatherCurrentDataStore(api : GetNearByWeather) : IWeatherCurrentDataStore =
+        WeatherCurrentDataSource(api)
 
+
+    @Provides
+    fun provideGetWeatherRepository(weatherCurrentDataSource: WeatherCurrentDataSource):
+    IGetWeatherRepository = GetWeatherRepository(weatherCurrentDataSource)
 }
