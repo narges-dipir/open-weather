@@ -35,14 +35,14 @@ fun mat() {
 @Composable
 fun MainCard() {
 
-    LazyRow {
+    Row {
 
-        item {
+//        item {
             Column {
 
                 Text(
                     text = "23 °C",
-                    style = MaterialTheme.typography.h1,
+                    style = MaterialTheme.typography.h3,
                     color = Color.White,
 
                     )
@@ -68,32 +68,26 @@ fun MainCard() {
                 }
             }
 
-        }
+//        }
+
+//item {
+    Column(
+        modifier = Modifier.fillMaxSize()
 
 
-
-        item {
-            Box(
-                modifier =
-                Modifier
-                    .requiredSize(100.dp)
-                    .clip(RoundedCornerShape(8.dp))
-            ) {
+    ) {
 
 
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.few_cloud_morning_foreground
-                    ),
-                    contentDescription = "Avatar",
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(100.dp)
+        Image(
+            painter = painterResource(
+                id = R.drawable.few_cloud_morning_foreground
+            ),
+            contentDescription = "Avatar",
 
-                )
-            }
-        }
+        )
 
+    }
+//}
     }
 
 }
