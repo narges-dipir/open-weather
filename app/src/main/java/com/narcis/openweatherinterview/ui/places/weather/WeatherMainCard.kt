@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -57,11 +58,7 @@ fun WeatherContent() {
             val weather = WeatherItem(wth, tmp, "Tehran")
             val lst : List<WeatherItem> = listOf(weather, weather,weather, weather,weather)
             WeatherDaily(weathers = lst)
-//            WeatherItem(weatherItem = weather)
-//                lst?.add(weather)
 
-//            val list : List<WeatherItem> = lst!!
-//           WeatherDaily(weathers = list)
         }
     }
 
@@ -94,7 +91,7 @@ fun MainCard() {
         Text(
             text = "24 ° / 19 °",
             style = MaterialTheme.typography.body1,
-            color = Color.White,
+            color = Color.White.copy(alpha = (0.7f)),
             modifier = Modifier.constrainAs(otherTemp) {
                 start.linkTo(mainTemp.end)
                 end.linkTo(locationIcon.start)
@@ -103,7 +100,13 @@ fun MainCard() {
             }
         )
 
-        Row(modifier = Modifier.constrainAs(locationIcon) {}) {
+        Card(
+            modifier = Modifier
+                .constrainAs(locationIcon) {},
+            elevation = 4.dp,
+            backgroundColor = Color.White.copy(alpha = 0.2f),
+        ) {
+        Row(modifier = Modifier.padding(2.dp)) {
 
 
             Image(
@@ -118,7 +121,9 @@ fun MainCard() {
                 style = MaterialTheme.typography.body1,
                 color = Color.White,
             )
+
         }
+    }
         Image(
             painter = painterResource(
                 id = R.drawable.few_cloud_morning_foreground
@@ -130,8 +135,6 @@ fun MainCard() {
 
             }
         )
-
-
     }
 
 

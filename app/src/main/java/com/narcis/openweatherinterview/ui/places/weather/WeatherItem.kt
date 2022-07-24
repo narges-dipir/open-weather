@@ -13,13 +13,17 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.narcis.openweatherinterview.R
 import com.narcis.openweatherinterview.data.model.Temperature
 import com.narcis.openweatherinterview.data.model.Weather
@@ -58,8 +62,7 @@ fun WeatherItem(
       
       Box(modifier = Modifier
           .requiredSize(70.dp)
-          .clip(CircleShape)
-          .background(Color.Green)) {
+          .clip(CircleShape)) {
     Image(painter = painterResource(id =  R.drawable.few_cloud_morning_foreground),
     contentDescription = "img", modifier = Modifier
             .width(70.dp)
@@ -86,6 +89,52 @@ fun WeatherItem(
   }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun ForecastWeakly() {
+    ConstraintLayout(modifier =
+    Modifier
+        .fillMaxWidth()
+        .padding(2.dp)) {
+        val (day, temps) = createRefs()
+        createHorizontalChain(day, temps, chainStyle = ChainStyle.SpreadInside)
+        
+        Text(text = "Tomorrow",
+        style = MaterialTheme.typography.h5,
+        modifier = Modifier.constrainAs(day) {
+            top.linkTo(parent.top, margin = 4.dp)
+            start.linkTo(parent.start)
+        })
+        Row(modifier = Modifier.constrainAs(temps) {
+            top.linkTo(parent.top)
+            end.linkTo(parent.end)
+            bottom.linkTo(parent.bottom)
+
+        }) {
+
+            Image(
+                painter = painterResource(id = R.drawable.few_cloud_morning_foreground),
+                contentDescription = "icon",
+                modifier = Modifier.width(20.dp)
+                    .height(20.dp)
+            )
+
+            Spacer(modifier = Modifier.padding(4.dp))
+
+            Text(text = "26°",
+            modifier = Modifier.padding(2.dp))
+            Text(text = "/",
+                modifier = Modifier.padding(2.dp))
+            Text(text = "17°",
+                modifier = Modifier.padding(2.dp),
+            color = Color.White.copy(alpha = 0.7f))
+
+
+
+        }
+    }
+}
+
 @Preview
 @Composable
 fun previewLocationNoted() {
@@ -94,5 +143,7 @@ fun previewLocationNoted() {
 val tmp : Temperature
 = Temperature(44.4, 55.55, 66.6)
     var weather : WeatherItem = WeatherItem(wth, tmp, "Tehran")
-    WeatherItem(weather)
+//    WeatherItem(weather)
+    ForecastWeakly()
 }
+
