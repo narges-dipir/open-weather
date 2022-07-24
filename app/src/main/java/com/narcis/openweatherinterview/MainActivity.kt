@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.narcis.openweatherinterview.ui.places.weather.WeatherContent
 import com.narcis.openweatherinterview.ui.theme.OpenWeatherInterviewTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    WeatherContent()
                 }
             }
         }
@@ -38,6 +39,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     OpenWeatherInterviewTheme {
-        Greeting("Android")
+        WeatherContent()
     }
 }

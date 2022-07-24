@@ -4,7 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +26,27 @@ import com.narcis.openweatherinterview.data.model.Weather
 import com.narcis.openweatherinterview.data.model.WeatherItem
 
 
+@Composable
+fun WeatherDaily(weathers : List<WeatherItem>) {
+    LazyRow {
+        item {
+            Spacer(modifier = Modifier.windowInsetsBottomHeight(
+                WindowInsets.statusBars.add(WindowInsets(top = 56.dp))
+            )
+            )
+        }
+        itemsIndexed(weathers) {index, item ->
+            if (index > 0)
+                Divider(thickness = 8.dp)
+                Spacer(modifier = Modifier.padding(2.dp))
+
+
+            WeatherItem(weatherItem = item)
+        }
+    }
+}
+
+
 
 @Composable
 fun WeatherItem(
@@ -35,12 +60,12 @@ fun WeatherItem(
           .requiredSize(70.dp)
           .clip(CircleShape)
           .background(Color.Green)) {
-Image(painter = painterResource(id =  R.drawable.ic_launcher_foreground),
+    Image(painter = painterResource(id =  R.drawable.few_cloud_morning_foreground),
     contentDescription = "img", modifier = Modifier
-        .width(70.dp)
-        .height(70.dp)
-        .padding(8.dp)
-        .align(Alignment.Center))
+            .width(70.dp)
+            .height(70.dp)
+            .padding(8.dp)
+            .align(Alignment.Center))
 
       }
 
@@ -52,7 +77,7 @@ Image(painter = painterResource(id =  R.drawable.ic_launcher_foreground),
       )
 
       Text(
-          text = "6 p.m",
+          text = "19 °C",
           style = MaterialTheme.typography.body1,
           textAlign = TextAlign.Center,
           modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)

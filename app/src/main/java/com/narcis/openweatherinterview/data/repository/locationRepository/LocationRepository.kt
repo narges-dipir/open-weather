@@ -10,9 +10,9 @@ class LocationRepository @Inject constructor(
     private val iLocationRemoteDataStore: ILocationRemoteDataStore
 ) : ILocationRepository {
     override fun getCurrentLocation(): Flow<ResultWrapper<LocationModel>> {
-     return iLocationRemoteDataStore.getCurrentLocation().map {
-         ResultWrapper.Success(it)
-     }
+        return iLocationRemoteDataStore.getCurrentLocation().map {
+            ResultWrapper.Success(it)
+        }
     }
 
 }
