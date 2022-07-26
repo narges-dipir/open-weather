@@ -89,9 +89,27 @@ fun WeatherItem(
   }
 }
 
+
+@Composable
+fun ForecastWeakly( weathers: List<WeatherItem> ) {
+LazyColumn {
+    item {
+        Spacer(modifier = Modifier.padding(4.dp))
+    }
+
+    itemsIndexed(weathers) { index, item ->
+        if (index > 0)
+            Divider(thickness = 4.dp)
+        ForecastWeaklyItem(item)
+    }
+
+}
+}
+
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ForecastWeakly() {
+fun ForecastWeaklyItem(weatherItem: WeatherItem) {
     ConstraintLayout(modifier =
     Modifier
         .fillMaxWidth()
@@ -115,7 +133,8 @@ fun ForecastWeakly() {
             Image(
                 painter = painterResource(id = R.drawable.few_cloud_morning_foreground),
                 contentDescription = "icon",
-                modifier = Modifier.width(20.dp)
+                modifier = Modifier
+                    .width(20.dp)
                     .height(20.dp)
             )
 
@@ -144,6 +163,6 @@ val tmp : Temperature
 = Temperature(44.4, 55.55, 66.6)
     var weather : WeatherItem = WeatherItem(wth, tmp, "Tehran")
 //    WeatherItem(weather)
-    ForecastWeakly()
+    ForecastWeaklyItem( weather)
 }
 

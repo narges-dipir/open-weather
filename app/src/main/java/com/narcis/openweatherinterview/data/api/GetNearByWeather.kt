@@ -6,10 +6,10 @@ import retrofit2.http.Query
 
 interface GetNearByWeather {
 
-    @GET("weather")
+    @GET("Weather/.json")
     suspend fun getNearByWeather(
         @Query("lat") lat : Double?,
         @Query("lon") lon : Double?,
-        @Query("appid") key: String = "994f5ded78c950a3f394f6cc65f83fb6"
+        @Query("appid") appid: String = "994f5ded78c950a3f394f6cc65f83fb6"
     ) : WeatherResponse
 }

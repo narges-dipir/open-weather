@@ -1,4 +1,4 @@
-package com.narcis.openweatherinterview.ui.places
+package com.narcis.openweatherinterview.ui.places.viewModel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -6,13 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.narcis.openweatherinterview.data.model.LocationModel
 import com.narcis.openweatherinterview.data.model.WeatherItem
-import com.narcis.openweatherinterview.data.repository.weatherRepository.GetWeatherRepository
 import com.narcis.openweatherinterview.domain.ResultWrapper
 import com.narcis.openweatherinterview.domain.data
 import com.narcis.openweatherinterview.domain.useCase.GetCurrentLocationUseCase
 import com.narcis.openweatherinterview.domain.useCase.weather.GetCurrentWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -25,7 +23,6 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     getCurrentLocationUseCase: GetCurrentLocationUseCase,
-    private val savedStateHandle : SavedStateHandle
 ): ViewModel() {
     private val getWeather = MutableSharedFlow<LatLng?>()
     private val _errorMessage = Channel<String>(1, BufferOverflow.DROP_LATEST)
@@ -64,22 +61,40 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
 
 
     init {
+         println(" %%%%%%%%% ")
+        println(" the viewstate is : " + viewState.value)
+        println( " *** " + getCurrentWeatherUseCase(LocationModel(50.66, 40.55)) )
     viewModelScope.launch {
+        println(" ^^^^^  " +viewState.filter {
+            println(" ^^ ")
+            it is ResultWrapper.Success && !it.data.equals(null) }
+            .mapLatest { it?.data }
+            .collect{ weather ->
+                weather.let {
+                    println(" the weather is : " + weather)
+                    _weatherItem.value = weather
+                }
+
+            } )
     viewState.filter {
         it is ResultWrapper.Success && !it.data.equals(null) }
         .mapLatest { it?.data }
         .collect{ weather ->
             weather.let {
+                println(" the weather is : " + weather)
                 _weatherItem.value = weather
             }
 
         }
      }
 
+        viewModelScope.launch {  }
+
     }
 
     fun getWeatherByLat() {
         viewModelScope.launch {
+            println(getWeather.emit(null).toString())
             getWeather.emit(null)
         }
     }

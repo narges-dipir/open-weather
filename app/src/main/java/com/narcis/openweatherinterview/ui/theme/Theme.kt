@@ -29,17 +29,12 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun OpenWeatherInterviewTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+
 
     MaterialTheme(
-        colors = colors,
+        colors = OpenWeatherColors,
         typography = Typography,
         shapes = Shapes,
         content = content

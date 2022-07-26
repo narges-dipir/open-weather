@@ -14,14 +14,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class LocationRemoteDataSource @Inject constructor(
+class  LocationRemoteDataSource @Inject constructor(
     @ApplicationContext private val context: Context,
     private val fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context.applicationContext),
     private val cancellationToken: CancellationToken,
-    private val locationSetting: SettingsClient,
+    private val locationSettingsClient: SettingsClient,
     private val locationSettingsRequest: LocationSettingsRequest
-) : ILocationRemoteDataSource{
+
+)  : ILocationRemoteDataSource{
     override fun getCurrentLocation(): Flow<LocationModel> {
         ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
 
@@ -39,7 +40,7 @@ class LocationRemoteDataSource @Inject constructor(
 
     private suspend fun checkLocationEnabled() {
         runCatching {
-            locationSetting.checkLocationSettings(locationSettingsRequest).await()
+            locationSettingsClient.checkLocationSettings(locationSettingsRequest).await()
         }.getOrElse {
             throw when(it) {
                 is ResolvableApiException -> Exception("the location service is off !")

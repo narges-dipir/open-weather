@@ -16,12 +16,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
+import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
 
 @ExperimentalPermissionsApi
 @Composable
 fun mapView(
-weatherViewModel: WeatherViewModel,
-onBackClicked : () -> Unit
+    weatherViewModel: WeatherViewModel,
+    onBackClicked : () -> Unit
 ) {
     val locationPermission = rememberPermissionState(permission =
             android.Manifest.permission.ACCESS_FINE_LOCATION)

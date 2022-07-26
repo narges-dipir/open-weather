@@ -15,9 +15,11 @@ class GetWeatherRepository @Inject constructor(
     : IGetWeatherRepository {
     override fun getWeatherRepository(latLong: LocationModel):
             Flow<ResultWrapper<WeatherItem>> {
+        println("im here " + latLong)
+
         return flow {
             val item = iWeatherCurrentDataStore.getWeatherDataSource(latLong).mapWeatherToItems()
-
+            println(" the item is : " + item.weather)
             emit(ResultWrapper.Success(item))
         }
     }
