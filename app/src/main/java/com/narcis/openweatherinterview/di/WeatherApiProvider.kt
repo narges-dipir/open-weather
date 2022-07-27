@@ -1,5 +1,8 @@
 package com.narcis.openweatherinterview.di
 
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
+import com.narcis.openweatherinterview.BuildConfig
 import com.narcis.openweatherinterview.data.api.GetNearByWeather
 import com.narcis.openweatherinterview.data.dataSource.ILocationRemoteDataSource
 import com.narcis.openweatherinterview.data.dataSource.IWeatherCurrentDataStore
@@ -15,8 +18,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 
@@ -27,9 +33,17 @@ class WeatherApiProvider {
     @Provides
     @Singleton
     fun provideOkHttp() : OkHttpClient {
-        return OkHttpClient.Builder().build()
+        return OkHttpClient.Builder().apply {
+            addInterceptor(
+                LoggingInterceptor.Builder()
+                    .setLevel(Level.BASIC)
+                    .log(Platform.INFO)
+                    .request("LOG")
+                    .response("LOG")
+                    .build()
+            )
+        }.build()
     }
-
     @Provides
     @Singleton
     fun provideRetrofitConnection(
@@ -45,6 +59,7 @@ class WeatherApiProvider {
     @Provides
     @Singleton
     fun provideWeatherApi(retrofit: Retrofit) : GetNearByWeather {
+        println(retrofit.baseUrl())
         return retrofit.create(GetNearByWeather::class.java)
     }
 
@@ -61,7 +76,6 @@ class WeatherApiProvider {
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class LocationSourceModule {
-
     @Binds
     internal abstract fun bindsLocationSource(
         locationSource: LocationRemoteDataSource

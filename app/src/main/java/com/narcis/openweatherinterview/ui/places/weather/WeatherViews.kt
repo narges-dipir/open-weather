@@ -158,7 +158,7 @@ fun ForecastWeaklyItem(weatherItem: WeatherItem) {
 @Composable
 fun previewLocationNoted() {
 
- var wth : Weather = Weather("clear", "sunny")
+ var wth : Weather = Weather(22,"clear", "sunny")
 val tmp : Temperature
 = Temperature(44.4, 55.55, 66.6)
     var weather : WeatherItem = WeatherItem(wth, tmp, "Tehran")

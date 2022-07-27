@@ -2,6 +2,7 @@ package com.narcis.openweatherinterview.data.dataSource
 
 import android.Manifest
 import android.content.Context
+import android.location.Location
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -21,24 +22,31 @@ class  LocationRemoteDataSource @Inject constructor(
     private val cancellationToken: CancellationToken,
     private val locationSettingsClient: SettingsClient,
     private val locationSettingsRequest: LocationSettingsRequest
-
 )  : ILocationRemoteDataSource{
     override fun getCurrentLocation(): Flow<LocationModel> {
-        ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+        ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
 
         return flow {
+//            println(" until here ... ")
             checkLocationEnabled()
-            fusedLocationProviderClient.getCurrentLocation(LocationRequest.PARCELABLE_WRITE_RETURN_VALUE,
-            cancellationToken).await().let {
+//            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location ->
+//                println(" the last known location is " + location)
+//            }
+            fusedLocationProviderClient.getCurrentLocation(
+                LocationRequest.PRIORITY_NO_POWER,
+                cancellationToken
+            ).await().let {
                 emit(it.toDataModel())
             }
-
-
         }
     }
 
 
     private suspend fun checkLocationEnabled() {
+
         runCatching {
             locationSettingsClient.checkLocationSettings(locationSettingsRequest).await()
         }.getOrElse {

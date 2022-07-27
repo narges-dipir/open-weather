@@ -78,7 +78,7 @@ fun WeatherContent(viewModel: WeatherViewModel) {
 //            var lst : MutableList<WeatherItem> ?= null
 
 
-                val wth = Weather("clear", "sunny")
+                val wth = Weather(22, "clear", "sunny")
                 val tmp = Temperature(44.4, 55.55, 66.6)
                 val weather = WeatherItem(wth, tmp, "Tehran")
                 val lst: List<WeatherItem> = listOf(weather, weather, weather, weather, weather , weather, weather)
@@ -95,7 +95,7 @@ fun WeatherContent(viewModel: WeatherViewModel) {
             top.linkTo(mainCard.bottom)
             bottom.linkTo(parent.bottom)
         }) {
-            val wth = Weather("clear", "sunny")
+            val wth = Weather(22,"clear", "sunny")
             val tmp = Temperature(44.4, 55.55, 66.6)
             val weather = WeatherItem(wth, tmp, "Tehran")
             val lst: List<WeatherItem> = listOf(weather, weather, weather, weather, weather, weather, weather)

@@ -18,19 +18,19 @@ class GetWeatherRepository @Inject constructor(
         println("im here " + latLong)
 
         return flow {
-            val item = iWeatherCurrentDataStore.getWeatherDataSource(latLong).mapWeatherToItems()
-            println(" the item is : " + item.weather)
-            emit(ResultWrapper.Success(item))
+            val item = iWeatherCurrentDataStore.getWeatherDataSource(latLong)
+            println(" the item is : " + item.toString())
+//            emit(ResultWrapper.Success(item))
         }
     }
 
-    private fun WeatherResponse.mapWeatherToItems() : WeatherItem {
-        return WeatherItem(
-                name = this.name,
-                main = this.main,
-                weather = this.weather
-            )
-    }
+//    private fun WeatherResponse.mapWeatherToItems() : WeatherItem {
+//        return WeatherItem(
+//                name = this.name,
+//                main = this.main,
+//                weather = this.weather
+//            )
+//    }
 
 
 }

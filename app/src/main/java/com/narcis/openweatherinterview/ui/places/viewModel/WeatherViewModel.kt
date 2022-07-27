@@ -63,6 +63,8 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
     init {
          println(" %%%%%%%%% ")
         println(" the viewstate is : " + viewState.value)
+
+        println(" the location is : " +   getCurrentLocationUseCase(Unit))
         println( " *** " + getCurrentWeatherUseCase(LocationModel(50.66, 40.55)) )
     viewModelScope.launch {
         println(" ^^^^^  " +viewState.filter {
