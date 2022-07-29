@@ -4,8 +4,6 @@ import com.narcis.openweatherinterview.data.model.LocationModel
 import com.narcis.openweatherinterview.data.model.WeatherResponse
 
 interface IWeatherCurrentDataStore {
-
-    suspend fun getWeatherDataSource(
-        latLng : LocationModel)
+    suspend fun getWeatherDataSource(latLng : LocationModel)
     : WeatherResponse
 }

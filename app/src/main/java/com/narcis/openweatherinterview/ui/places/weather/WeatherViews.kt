@@ -1,7 +1,6 @@
 package com.narcis.openweatherinterview.ui.places.weather
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.narcis.openweatherinterview.R
-import com.narcis.openweatherinterview.data.model.Temperature
-import com.narcis.openweatherinterview.data.model.Weather
 import com.narcis.openweatherinterview.data.model.WeatherItem
 
 
@@ -158,10 +154,7 @@ fun ForecastWeaklyItem(weatherItem: WeatherItem) {
 @Composable
 fun previewLocationNoted() {
 
- var wth : Weather = Weather(22,"clear", "sunny")
-val tmp : Temperature
-= Temperature(44.4, 55.55, 66.6)
-    var weather : WeatherItem = WeatherItem(wth, tmp, "Tehran")
+    val weather = WeatherItem(22, "&&" , "77", 2.2, 2.2, 5.5, "fff")
 //    WeatherItem(weather)
     ForecastWeaklyItem( weather)
 }

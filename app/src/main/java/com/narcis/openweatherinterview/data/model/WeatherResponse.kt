@@ -1,6 +1,10 @@
 package com.narcis.openweatherinterview.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.narcis.openweatherinterview.data.model.weatherObjects.Clouds
+import com.narcis.openweatherinterview.data.model.weatherObjects.Main
+import com.narcis.openweatherinterview.data.model.weatherObjects.Weather
+import com.narcis.openweatherinterview.data.model.weatherObjects.Wind
 
 data class WeatherResponse(
     @SerializedName("base")
@@ -30,10 +34,7 @@ data class WeatherResponse(
     @SerializedName("wind")
     val wind: Wind
 )
-data class Clouds(
-    @SerializedName("all")
-    val all: Int
-)
+
 data class Coord(
     @SerializedName("lat")
     val lat: Double,
@@ -41,24 +42,6 @@ data class Coord(
     val lon: Double
 )
 
-data class Main(
-    @SerializedName("feels_like")
-    val feelsLike: Double,
-    @SerializedName("grnd_level")
-    val grndLevel: Int,
-    @SerializedName("humidity")
-    val humidity: Int,
-    @SerializedName("pressure")
-    val pressure: Int,
-    @SerializedName("sea_level")
-    val seaLevel: Int,
-    @SerializedName("temp")
-    val temp: Double,
-    @SerializedName("temp_max")
-    val tempMax: Double,
-    @SerializedName("temp_min")
-    val tempMin: Double
-)
 
 data class Sys(
     @SerializedName("country")
@@ -67,10 +50,4 @@ data class Sys(
     val sunrise: Int,
     @SerializedName("sunset")
     val sunset: Int
-)
-data class Wind(
-    @SerializedName("deg")
-    val deg: Int,
-    @SerializedName("speed")
-    val speed: Double
 )

@@ -1,4 +1,4 @@
-package com.narcis.openweatherinterview.data.model
+package com.narcis.openweatherinterview.data.model.weatherObjects
 
 import com.google.gson.annotations.SerializedName
 

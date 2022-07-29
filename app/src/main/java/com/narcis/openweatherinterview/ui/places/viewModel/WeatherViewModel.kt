@@ -27,7 +27,7 @@ class WeatherViewModel @Inject constructor(
     private val getWeather = MutableSharedFlow<LatLng?>()
     private val _errorMessage = Channel<String>(1, BufferOverflow.DROP_LATEST)
     private val _weatherItem = MutableStateFlow<WeatherItem?>(null)
-    private val weather : StateFlow<WeatherItem?> = _weatherItem
+    val weatherResultsByLocation : StateFlow<WeatherItem?> = _weatherItem
     val errorMessage :Flow<String> = _errorMessage.receiveAsFlow().
     shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000))
 
@@ -50,7 +50,6 @@ class WeatherViewModel @Inject constructor(
                 _errorMessage.trySend(it.exception.message ?: "Error")
             }
         }
-
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ResultWrapper.Loading)
 
 
@@ -61,23 +60,9 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
 
 
     init {
-         println(" %%%%%%%%% ")
-        println(" the viewstate is : " + viewState.value)
 
-        println(" the location is : " +   getCurrentLocationUseCase(Unit))
-        println( " *** " + getCurrentWeatherUseCase(LocationModel(50.66, 40.55)) )
     viewModelScope.launch {
-        println(" ^^^^^  " +viewState.filter {
-            println(" ^^ ")
-            it is ResultWrapper.Success && !it.data.equals(null) }
-            .mapLatest { it?.data }
-            .collect{ weather ->
-                weather.let {
-                    println(" the weather is : " + weather)
-                    _weatherItem.value = weather
-                }
 
-            } )
     viewState.filter {
         it is ResultWrapper.Success && !it.data.equals(null) }
         .mapLatest { it?.data }
@@ -96,7 +81,7 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
 
     fun getWeatherByLat() {
         viewModelScope.launch {
-            println(getWeather.emit(null).toString())
+            println(" ja ja ja  " + getWeather.emit(null).toString())
             getWeather.emit(null)
         }
     }

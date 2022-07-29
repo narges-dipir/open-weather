@@ -32,15 +32,15 @@ class  LocationRemoteDataSource @Inject constructor(
         return flow {
 //            println(" until here ... ")
             checkLocationEnabled()
-//            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location ->
-//                println(" the last known location is " + location)
-//            }
-            fusedLocationProviderClient.getCurrentLocation(
-                LocationRequest.PRIORITY_NO_POWER,
-                cancellationToken
-            ).await().let {
-                emit(it.toDataModel())
+            fusedLocationProviderClient.lastLocation.await().let{
+              emit(it.toDataModel())
             }
+//            fusedLocationProviderClient.getCurrentLocation(
+//                LocationRequest.PRIORITY_NO_POWER,
+//                cancellationToken
+//            ).await().let {
+//                emit(it.toDataModel())
+//            }
         }
     }
 
