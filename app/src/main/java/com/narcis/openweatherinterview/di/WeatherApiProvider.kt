@@ -3,7 +3,6 @@ package com.narcis.openweatherinterview.di
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
 import com.narcis.openweatherinterview.data.api.weather.GetNearByWeather
-import com.narcis.openweatherinterview.data.api.weather.GetNearByWeatherForecast
 import com.narcis.openweatherinterview.data.dataSource.*
 import com.narcis.openweatherinterview.data.repository.forecastRepository.GetForecastRepository
 import com.narcis.openweatherinterview.data.repository.forecastRepository.IGetForecastRepository
@@ -58,11 +57,11 @@ class WeatherApiProvider {
         return retrofit.create(GetNearByWeather::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideForecastApi(retrofit: Retrofit) : GetNearByWeatherForecast {
-        return retrofit.create(GetNearByWeatherForecast::class.java )
-    }
+//    @Provides
+//    @Singleton
+//    fun provideForecastApi(retrofit: Retrofit) : GetNearByWeatherForecast {
+//        return retrofit.create(GetNearByWeatherForecast::class.java )
+//    }
 
     @Provides
     fun provideGetWeatherRepository(weatherCurrentDataSource: WeatherCurrentDataSource):

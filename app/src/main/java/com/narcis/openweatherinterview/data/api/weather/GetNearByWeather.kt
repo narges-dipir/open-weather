@@ -15,4 +15,11 @@ interface GetNearByWeather {
         @Query("units") units : String = "metric"
     ) : WeatherResponse
 
+    @GET("forecast")
+    suspend fun getNearByForecast(
+        @Query("lat") lat : String,
+        @Query("lon") lon : String,
+        @Query("appid") appid: String = "994f5ded78c950a3f394f6cc65f83fb6",
+    ) : ForecastResponse
+
 }
