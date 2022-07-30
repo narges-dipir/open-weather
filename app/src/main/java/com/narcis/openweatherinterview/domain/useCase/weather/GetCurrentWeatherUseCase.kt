@@ -14,7 +14,7 @@ import javax.inject.Inject
 class GetCurrentWeatherUseCase @Inject constructor(
     private val getWeatherRepository: IGetWeatherRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : FlowUseCase<LocationModel, WeatherItem> (ioDispatcher){
+    ) : FlowUseCase<LocationModel, WeatherItem> (ioDispatcher){
     override fun execute(parameter: LocationModel): Flow<ResultWrapper<WeatherItem>> =
         getWeatherRepository.getWeatherRepository(parameter)
 }

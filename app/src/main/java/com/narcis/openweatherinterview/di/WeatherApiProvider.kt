@@ -4,9 +4,9 @@ import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
 import com.narcis.openweatherinterview.data.api.weather.GetNearByWeather
 import com.narcis.openweatherinterview.data.api.weather.GetNearByWeatherForecast
-import com.narcis.openweatherinterview.data.dataSource.ILocationRemoteDataSource
-import com.narcis.openweatherinterview.data.dataSource.LocationRemoteDataSource
-import com.narcis.openweatherinterview.data.dataSource.WeatherCurrentDataSource
+import com.narcis.openweatherinterview.data.dataSource.*
+import com.narcis.openweatherinterview.data.repository.forecastRepository.GetForecastRepository
+import com.narcis.openweatherinterview.data.repository.forecastRepository.IGetForecastRepository
 import com.narcis.openweatherinterview.data.repository.locationRepository.ILocationRepository
 import com.narcis.openweatherinterview.data.repository.locationRepository.LocationRepository
 import com.narcis.openweatherinterview.data.repository.weatherRepository.GetWeatherRepository
@@ -45,7 +45,6 @@ class WeatherApiProvider {
     @Singleton
     fun provideRetrofitConnection(
         okHttpClient: OkHttpClient) : Retrofit {
-
         return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .client(okHttpClient)
@@ -62,18 +61,19 @@ class WeatherApiProvider {
     @Provides
     @Singleton
     fun provideForecastApi(retrofit: Retrofit) : GetNearByWeatherForecast {
-        return retrofit.create(GetNearByWeatherForecast::class.java)
+        return retrofit.create(GetNearByWeatherForecast::class.java )
     }
-
-//    @Provides
-//    fun provideWeatherCurrentDataStore(api : GetNearByWeather) : IWeatherCurrentDataStore =
-//        WeatherCurrentDataSource(api)
-
 
     @Provides
     fun provideGetWeatherRepository(weatherCurrentDataSource: WeatherCurrentDataSource):
     IGetWeatherRepository = GetWeatherRepository(weatherCurrentDataSource)
+
+    @Provides
+    fun provideGetForecastRepository(forecastDataSource: ForecastDataSource)
+    : IGetForecastRepository = GetForecastRepository(forecastDataSource)
+
 }
+
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -81,7 +81,6 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
 
     fun getWeatherByLat() {
         viewModelScope.launch {
-            println(" ja ja ja  " + getWeather.emit(null).toString())
             getWeather.emit(null)
         }
     }

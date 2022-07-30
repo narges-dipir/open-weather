@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.narcis.openweatherinterview.ui.places.viewModel.ForecastViewModel
 import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
 import com.narcis.openweatherinterview.ui.places.weather.WeatherContent
 import com.narcis.openweatherinterview.ui.theme.OpenWeatherInterviewTheme
@@ -50,16 +51,19 @@ fun Greeting(name: String) {
 
  @ExperimentalPermissionsApi
  @Composable fun PlacesCategoriesDestination() {
-     val viewModel: WeatherViewModel = hiltViewModel()
-     viewModel.getWeatherByLat()
-     WeatherContent(viewModel)
+     val weatherViewModel: WeatherViewModel = hiltViewModel()
+     val forecastViewModel : ForecastViewModel = hiltViewModel()
+     weatherViewModel.getWeatherByLat()
+     forecastViewModel.getForecastByLat()
+     WeatherContent(weatherViewModel, forecastViewModel)
  }
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     OpenWeatherInterviewTheme {
         val viewModel: WeatherViewModel = hiltViewModel()
+        val forecastViewModel : ForecastViewModel = hiltViewModel()
 
-        WeatherContent(viewModel)
+        WeatherContent(viewModel, forecastViewModel)
     }
 }

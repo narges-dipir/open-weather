@@ -25,8 +25,8 @@ class GetWeatherRepository @Inject constructor(
         return WeatherItem(
             id = this.id,
             name = this.name,
-            main = this.weather.get(0).main,
-            description = this.weather.get(0).description,
+            main = this.weather[0].main,
+            description = this.weather[0].description,
             temp = this.main.temp,
             temp_min = this.main.tempMin,
             temp_max = this.main.tempMax

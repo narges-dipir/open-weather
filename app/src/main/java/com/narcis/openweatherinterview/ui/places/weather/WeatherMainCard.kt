@@ -19,6 +19,7 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.narcis.openweatherinterview.R
 import com.narcis.openweatherinterview.data.model.WeatherItem
+import com.narcis.openweatherinterview.ui.places.viewModel.ForecastViewModel
 import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
 import com.narcis.openweatherinterview.ui.viewUtiles.LoadingContent
 import com.narcis.openweatherinterview.ui.viewUtiles.verticalGradientScrim
@@ -34,13 +35,15 @@ fun mat() {
 }
 
 @Composable
-fun WeatherContent(viewModel: WeatherViewModel) {
-    val weatherList by viewModel.weatherResultsByLocation.collectAsState()
-    val isLoading by viewModel.isLoading.collectAsState()
+fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: ForecastViewModel) {
+    val weatherList by weatherViewModel.weatherResultsByLocation.collectAsState()
+    val isLoading by weatherViewModel.isLoading.collectAsState()
 
-    println(" the loading is : " + isLoading)
-    println(" the weather list is : " + weatherList)
+    val forecastList by forecastViewModel.forecastResultByLocation.collectAsState()
+    val forecastLoading by forecastViewModel.isLoading.collectAsState()
 
+    println("the forecast loading is : " + forecastLoading)
+    println(" the forecast list is : " + forecastList)
 
     ConstraintLayout(
         modifier = Modifier
