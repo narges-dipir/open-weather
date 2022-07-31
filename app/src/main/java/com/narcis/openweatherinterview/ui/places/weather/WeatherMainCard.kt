@@ -19,8 +19,10 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.narcis.openweatherinterview.R
 import com.narcis.openweatherinterview.data.model.WeatherItem
+import com.narcis.openweatherinterview.data.model.WeeklyItem
 import com.narcis.openweatherinterview.ui.places.viewModel.ForecastViewModel
 import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
+import com.narcis.openweatherinterview.ui.places.viewModel.WeeklyViewModel
 import com.narcis.openweatherinterview.ui.viewUtiles.LoadingContent
 import com.narcis.openweatherinterview.ui.viewUtiles.verticalGradientScrim
 
@@ -35,15 +37,18 @@ fun mat() {
 }
 
 @Composable
-fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: ForecastViewModel) {
+fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: ForecastViewModel,
+            foreCastWeeklyViewModel: WeeklyViewModel) {
     val weatherList by weatherViewModel.weatherResultsByLocation.collectAsState()
     val isLoading by weatherViewModel.isLoading.collectAsState()
 
     val forecastList by forecastViewModel.forecastResultByLocation.collectAsState()
     val forecastLoading by forecastViewModel.isLoading.collectAsState()
 
-    println("the forecast loading is : " + forecastLoading)
-    println(" the forecast list is : " + forecastList)
+    val weeklyForecastList by foreCastWeeklyViewModel.weeklyResultByLocation.collectAsState()
+    val weeklyLoading by foreCastWeeklyViewModel.isLoading.collectAsState()
+
+    println(" the weeklyForecastList is  " + weeklyForecastList)
 
     ConstraintLayout(
         modifier = Modifier
@@ -56,51 +61,42 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             .systemBarsPadding()
             .padding(horizontal = 8.dp)
     ) {
-        LoadingContent(loading = isLoading) {
+        LoadingContent(loading = weeklyLoading) {
         // We dynamically theme this sub-section of the layout to match the selected
         // 'top podcast'
-        val (mainCard, weakCard) = createRefs()
-        createVerticalChain(mainCard, weakCard, chainStyle = ChainStyle.Packed)
+        val (mainCard, weekCard) = createRefs()
+        createVerticalChain(mainCard, weekCard, chainStyle = ChainStyle.Packed)
         LazyColumn(modifier = Modifier.constrainAs(mainCard) {
             top.linkTo(parent.top)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-            bottom.linkTo(weakCard.top, margin = 4.dp)
+            bottom.linkTo(weekCard.top, margin = 4.dp)
         }) {
 
             item {
                 if (weatherList != null)
                 MainCard(weatherList!!.description,
                     weatherList!!.temp, weatherList!!.temp_max,
-                weatherList!!.temp_min)
+                weatherList!!.temp_min, weatherList!!.name)
             }
             item {
                 Spacer(modifier = Modifier.padding(16.dp))
             }
             item {
-//            var lst : MutableList<WeatherItem> ?= null
-
-                val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
-                val lst: List<WeatherItem> =
-                    listOf(weather, weather, weather, weather, weather, weather, weather)
-                WeatherDaily(weathers = lst)
-
+                WeatherDaily(forecastList)
             }
-//        item {
-//            Spacer(modifier = Modifier.padding(16.dp))
-//        }
-//
 
         }
-        Column(modifier = Modifier.constrainAs(weakCard) {
+        Column(modifier = Modifier.constrainAs(weekCard) {
             top.linkTo(mainCard.bottom)
             bottom.linkTo(parent.bottom)
         }) {
+            val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
             val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
-            val lst: List<WeatherItem> =
-                listOf(weather, weather, weather, weather, weather, weather, weather)
+            val lst: List<WeeklyItem> =
+                listOf(weeku, weeku, weeku, weeku, weeku, weeku, weeku)
 
-            ForecastWeakly(weathers = lst)
+            ForecastWeekly( lst)
         }
     }
 }
@@ -108,7 +104,7 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
 
 
 @Composable
-fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double) {
+fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double, name : String) {
 
     ConstraintLayout(
         modifier = Modifier
@@ -157,7 +153,7 @@ fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double
             )
 
             Text(
-                text = "New York",
+                text = name,
                 style = MaterialTheme.typography.body1,
                 color = Color.White,
             )

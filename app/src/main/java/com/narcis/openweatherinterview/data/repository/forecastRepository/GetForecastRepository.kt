@@ -2,6 +2,7 @@ package com.narcis.openweatherinterview.data.repository.forecastRepository
 
 import com.narcis.openweatherinterview.data.dataSource.IForecastDataSource
 import com.narcis.openweatherinterview.data.model.ForecastItem
+import com.narcis.openweatherinterview.data.model.ForecastList
 import com.narcis.openweatherinterview.data.model.ForecastResponse
 import com.narcis.openweatherinterview.data.model.LocationModel
 import com.narcis.openweatherinterview.domain.ResultWrapper
@@ -12,19 +13,19 @@ import javax.inject.Inject
 class GetForecastRepository @Inject constructor(
     private val iForecastDataSource: IForecastDataSource
 ) : IGetForecastRepository{
-    override suspend fun getForecastRepository(latLong: LocationModel): Flow<List<ResultWrapper<ForecastItem>>> {
+    override fun getForecastRepository(latLong: LocationModel):Flow<ResultWrapper<List<ForecastItem>>> {
         return flow {
-
-         val item =  iForecastDataSource.getForecastDataSource(latLong).mapToForecastItem()
-        emit(listOf(ResultWrapper.Success(item)))}
+           val item =  iForecastDataSource.getForecastDataSource(latLong).mapToForecastItem()
+        emit(ResultWrapper.Success(item))}
     }
 
-    private fun ForecastResponse.mapToForecastItem() : ForecastItem {
-        return ForecastItem(
-            temp = this.main.temp,
-            temp_min = this.main.tempMin,
-            temp_max = this.main.tempMax,
-            description = this.weather[0].description
+    private fun ForecastList.mapToForecastItem() : List<ForecastItem> {
+        return this.list.map { item ->  ForecastItem(
+            temp = item.main.temp,
+            temp_min = item.main.tempMin,
+            temp_max = item.main.tempMax,
+            description = item.weather[0].description
         )
     }
+}
 }

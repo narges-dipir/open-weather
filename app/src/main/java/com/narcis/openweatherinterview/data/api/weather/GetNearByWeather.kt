@@ -1,9 +1,12 @@
 package com.narcis.openweatherinterview.data.api.weather
 
+import com.narcis.openweatherinterview.data.model.ForecastList
 import com.narcis.openweatherinterview.data.model.ForecastResponse
 import com.narcis.openweatherinterview.data.model.WeatherResponse
+import com.narcis.openweatherinterview.data.model.weatherObjects.WeeklyList
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.lang.Exception
 
 interface GetNearByWeather {
 
@@ -20,6 +23,17 @@ interface GetNearByWeather {
         @Query("lat") lat : String,
         @Query("lon") lon : String,
         @Query("appid") appid: String = "994f5ded78c950a3f394f6cc65f83fb6",
-    ) : ForecastResponse
+        @Query("units") units : String = "metric"
+    ) : ForecastList
+
+
+    @GET("onecall")
+    suspend fun getWeeklyForecast(
+        @Query("lat") lat : String,
+        @Query("lon") lon: String,
+        @Query("exclude") exclude : String = "current%2Cminutely%2Chourly",
+        @Query("appid") appid: String = "994f5ded78c950a3f394f6cc65f83fb6",
+        @Query("units") units : String = "metric"
+    ) : WeeklyList
 
 }

@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.narcis.openweatherinterview.ui.places.viewModel.ForecastViewModel
 import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
+import com.narcis.openweatherinterview.ui.places.viewModel.WeeklyViewModel
 import com.narcis.openweatherinterview.ui.places.weather.WeatherContent
 import com.narcis.openweatherinterview.ui.theme.OpenWeatherInterviewTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,9 +54,11 @@ fun Greeting(name: String) {
  @Composable fun PlacesCategoriesDestination() {
      val weatherViewModel: WeatherViewModel = hiltViewModel()
      val forecastViewModel : ForecastViewModel = hiltViewModel()
+     val forecastWeeklyViewModel : WeeklyViewModel = hiltViewModel()
      weatherViewModel.getWeatherByLat()
      forecastViewModel.getForecastByLat()
-     WeatherContent(weatherViewModel, forecastViewModel)
+     forecastWeeklyViewModel.getWeeklyByLocation()
+     WeatherContent(weatherViewModel, forecastViewModel, forecastWeeklyViewModel)
  }
 @Preview(showBackground = true)
 @Composable
@@ -63,7 +66,7 @@ fun DefaultPreview() {
     OpenWeatherInterviewTheme {
         val viewModel: WeatherViewModel = hiltViewModel()
         val forecastViewModel : ForecastViewModel = hiltViewModel()
-
-        WeatherContent(viewModel, forecastViewModel)
+        val forecastWeeklyViewModel : WeeklyViewModel = hiltViewModel()
+        WeatherContent(viewModel, forecastViewModel, forecastWeeklyViewModel)
     }
 }

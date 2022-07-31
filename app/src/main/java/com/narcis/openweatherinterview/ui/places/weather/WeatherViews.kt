@@ -23,11 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.narcis.openweatherinterview.R
+import com.narcis.openweatherinterview.data.model.ForecastItem
 import com.narcis.openweatherinterview.data.model.WeatherItem
+import com.narcis.openweatherinterview.data.model.WeeklyItem
 
 
 @Composable
-fun WeatherDaily(weathers : List<WeatherItem>) {
+fun WeatherDaily(weathers: List<ForecastItem?>) {
     LazyRow {
         item {
             Spacer(modifier = Modifier.windowInsetsBottomHeight(
@@ -35,6 +37,7 @@ fun WeatherDaily(weathers : List<WeatherItem>) {
             )
             )
         }
+        if (weathers != null)
         itemsIndexed(weathers) {index, item ->
             if (index > 0)
                 Divider(thickness = 8.dp)
@@ -50,7 +53,7 @@ fun WeatherDaily(weathers : List<WeatherItem>) {
 
 @Composable
 fun WeatherItem(
-    weatherItem: WeatherItem
+    weatherItem: ForecastItem?
 ) {
   Column(
       modifier = Modifier.clickable {  },
@@ -69,14 +72,14 @@ fun WeatherItem(
       }
 
       Text(
-          text = weatherItem.name,
+          text = weatherItem!!.description,
           style = MaterialTheme.typography.caption,
           textAlign = TextAlign.Center,
           modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
       )
 
       Text(
-          text = "19 °C",
+          text = weatherItem.temp.toString(),
           style = MaterialTheme.typography.body1,
           textAlign = TextAlign.Center,
           modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
@@ -87,16 +90,17 @@ fun WeatherItem(
 
 
 @Composable
-fun ForecastWeakly( weathers: List<WeatherItem> ) {
+fun ForecastWeekly(days: List<WeeklyItem?>) {
 LazyColumn {
     item {
         Spacer(modifier = Modifier.padding(4.dp))
     }
-
-    itemsIndexed(weathers) { index, item ->
+println("the days are " + days)
+    itemsIndexed(days) { index, item ->
         if (index > 0)
             Divider(thickness = 4.dp)
-        ForecastWeaklyItem(item)
+        if (item != null)
+        ForecastweeklyItem(item)
     }
 
 }
@@ -105,7 +109,7 @@ LazyColumn {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ForecastWeaklyItem(weatherItem: WeatherItem) {
+fun ForecastweeklyItem(weekItem: WeeklyItem) {
     ConstraintLayout(modifier =
     Modifier
         .fillMaxWidth()
@@ -136,11 +140,11 @@ fun ForecastWeaklyItem(weatherItem: WeatherItem) {
 
             Spacer(modifier = Modifier.padding(4.dp))
 
-            Text(text = "26°",
+            Text(text = weekItem.max.toString(),
             modifier = Modifier.padding(2.dp))
             Text(text = "/",
                 modifier = Modifier.padding(2.dp))
-            Text(text = "17°",
+            Text(text = weekItem.min.toString(),
                 modifier = Modifier.padding(2.dp),
             color = Color.White.copy(alpha = 0.7f))
 
@@ -155,7 +159,8 @@ fun ForecastWeaklyItem(weatherItem: WeatherItem) {
 fun previewLocationNoted() {
 
     val weather = WeatherItem(22, "&&" , "77", 2.2, 2.2, 5.5, "fff")
+    val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
 //    WeatherItem(weather)
-    ForecastWeaklyItem( weather)
+    ForecastweeklyItem( weeku)
 }
 

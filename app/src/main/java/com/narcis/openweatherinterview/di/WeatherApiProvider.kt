@@ -5,7 +5,9 @@ import com.ihsanbal.logging.LoggingInterceptor
 import com.narcis.openweatherinterview.data.api.weather.GetNearByWeather
 import com.narcis.openweatherinterview.data.dataSource.*
 import com.narcis.openweatherinterview.data.repository.forecastRepository.GetForecastRepository
+import com.narcis.openweatherinterview.data.repository.forecastRepository.GetWeeklyForecastRepository
 import com.narcis.openweatherinterview.data.repository.forecastRepository.IGetForecastRepository
+import com.narcis.openweatherinterview.data.repository.forecastRepository.IGetWeeklyForecastRepository
 import com.narcis.openweatherinterview.data.repository.locationRepository.ILocationRepository
 import com.narcis.openweatherinterview.data.repository.locationRepository.LocationRepository
 import com.narcis.openweatherinterview.data.repository.weatherRepository.GetWeatherRepository
@@ -70,6 +72,10 @@ class WeatherApiProvider {
     @Provides
     fun provideGetForecastRepository(forecastDataSource: ForecastDataSource)
     : IGetForecastRepository = GetForecastRepository(forecastDataSource)
+
+    @Provides
+    fun provideGetWeeklyRepository(weeklyDataSource: WeeklyDataSource) :
+            IGetWeeklyForecastRepository = GetWeeklyForecastRepository(weeklyDataSource)
 
 }
 
