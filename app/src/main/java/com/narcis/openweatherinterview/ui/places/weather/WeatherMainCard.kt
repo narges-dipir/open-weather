@@ -10,7 +10,10 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +28,8 @@ import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
 import com.narcis.openweatherinterview.ui.places.viewModel.WeeklyViewModel
 import com.narcis.openweatherinterview.ui.viewUtiles.LoadingContent
 import com.narcis.openweatherinterview.ui.viewUtiles.verticalGradientScrim
+import com.narcis.openweatherinterview.ui.widgets.AnimationSun
+import com.narcis.openweatherinterview.ui.widgets.Sun
 
 @Preview
 @Composable
@@ -48,7 +53,6 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
     val weeklyForecastList by foreCastWeeklyViewModel.weeklyResultByLocation.collectAsState()
     val weeklyLoading by foreCastWeeklyViewModel.isLoading.collectAsState()
 
-    println(" the weeklyForecastList is  " + weeklyForecastList)
 
     ConstraintLayout(
         modifier = Modifier
@@ -74,6 +78,8 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
         }) {
 
             item {
+
+
                 if (weatherList != null)
                 MainCard(weatherList!!.description,
                     weatherList!!.temp, weatherList!!.temp_max,
@@ -83,10 +89,12 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
                 Spacer(modifier = Modifier.padding(16.dp))
             }
             item {
+                if (forecastList.isNotEmpty())
                 WeatherDaily(forecastList)
             }
 
         }
+
         Column(modifier = Modifier.constrainAs(weekCard) {
             top.linkTo(mainCard.bottom)
             bottom.linkTo(parent.bottom)
@@ -95,8 +103,8 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
             val lst: List<WeeklyItem> =
                 listOf(weeku, weeku, weeku, weeku, weeku, weeku, weeku)
-
-            ForecastWeekly( lst)
+            if (weeklyForecastList.isNotEmpty())
+            ForecastWeekly( weeklyForecastList)
         }
     }
 }
@@ -145,6 +153,7 @@ fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double
         Row(modifier = Modifier.padding(2.dp)) {
 
 
+
             Image(
                 painter = painterResource(
                     id = R.drawable.ic_location
@@ -160,12 +169,8 @@ fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double
 
         }
     }
-        Image(
-            painter = painterResource(
-                id = R.drawable.few_cloud_morning_foreground
-            ),
-            contentDescription = "Avatar",
-            modifier = Modifier.constrainAs(image) {
+
+        AnimationSun(Modifier.size(200.dp).constrainAs(image) {
                 top.linkTo(parent.top)
                 end.linkTo(parent.end)
 

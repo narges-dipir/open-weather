@@ -52,7 +52,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
     implementation 'androidx.activity:activity-compose:1.5.0'
     testImplementation 'junit:junit:4.13.2'
@@ -62,9 +61,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.21'
     implementation "androidx.collection:collection-ktx:1.2.0"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     // open weather
@@ -88,13 +85,16 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.2'
     //compose
-    debugImplementation "androidx.compose.ui:ui-tooling:1.1.1"
-    implementation "androidx.compose.ui:ui-tooling-preview:1.1.1"
+    debugImplementation "androidx.compose.ui:ui-tooling:1.2.0"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.2.0"
     implementation "com.google.accompanist:accompanist-permissions:0.23.1"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     implementation 'com.google.accompanist:accompanist-swiperefresh:0.9.0'
     implementation "androidx.compose.runtime:runtime-livedata:1.1.1"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    implementation "androidx.compose.ui:ui:1.2.0"
 
     // logging
     implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0') { // HTTP pretty log printing library

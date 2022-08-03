@@ -95,7 +95,7 @@ LazyColumn {
     item {
         Spacer(modifier = Modifier.padding(4.dp))
     }
-println("the days are " + days)
+//println("the days are " + days)
     itemsIndexed(days) { index, item ->
         if (index > 0)
             Divider(thickness = 4.dp)
