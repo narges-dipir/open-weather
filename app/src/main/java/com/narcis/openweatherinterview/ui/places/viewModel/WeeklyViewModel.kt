@@ -25,7 +25,7 @@ class WeeklyViewModel @Inject constructor(
     private val _errorMessage = Channel<String>(1, BufferOverflow.DROP_LATEST)
     private val _weeklyItem = MutableStateFlow<List<WeeklyItem?>>(listOf<WeeklyItem>())
     val weeklyResultByLocation : StateFlow<List<WeeklyItem?>> = _weeklyItem
-    private val viewState : StateFlow<ResultWrapper<List<WeeklyItem>>?> =
+    val viewState : StateFlow<ResultWrapper<List<WeeklyItem>>?> =
         getWeekly.flatMapLatest { location ->
             if (location == null || location.latitude == 0.0)
                 getCurrentLocationUseCase(Unit)
@@ -50,13 +50,12 @@ class WeeklyViewModel @Inject constructor(
             viewModelScope.launch {
                 viewState.filter {
                     it is ResultWrapper.Success && !it.data.equals(null)
-                }.mapLatest { it?.data }.collect{forecast ->
-                    _weeklyItem.value = forecast!!
-                    println(" the value is : " + _weeklyItem.value)
+                }.mapLatest { it?.data }. collect{weekly ->
+//                    println(" the weekly is : " + weekly)
+                    _weeklyItem.value = weekly!!
                 }
             }
-            }
-
+        }
 
   fun  getWeeklyByLocation() {
         viewModelScope.launch {

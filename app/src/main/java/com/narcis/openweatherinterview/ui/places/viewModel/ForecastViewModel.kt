@@ -57,7 +57,7 @@ class ForecastViewModel @Inject constructor(
                 it is ResultWrapper.Success && !it.data.equals(null)
             }.mapLatest { it?.data }.collect{forecast ->
                 _forecastItem.value = forecast!!
-                println(" the _forecastItem is : " + _forecastItem.value)
+//                println(" the _forecastItem is : " + _forecastItem.value)
             }
         }
     }

@@ -43,7 +43,7 @@ fun mat() {
 
 @Composable
 fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: ForecastViewModel,
-            foreCastWeeklyViewModel: WeeklyViewModel) {
+                   foreCastWeeklyViewModel: WeeklyViewModel) {
     val weatherList by weatherViewModel.weatherResultsByLocation.collectAsState()
     val isLoading by weatherViewModel.isLoading.collectAsState()
 
@@ -66,48 +66,49 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             .padding(horizontal = 8.dp)
     ) {
         LoadingContent(loading = weeklyLoading) {
-        // We dynamically theme this sub-section of the layout to match the selected
-        // 'top podcast'
-        val (mainCard, weekCard) = createRefs()
-        createVerticalChain(mainCard, weekCard, chainStyle = ChainStyle.Packed)
-        LazyColumn(modifier = Modifier.constrainAs(mainCard) {
-            top.linkTo(parent.top)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-            bottom.linkTo(weekCard.top, margin = 4.dp)
-        }) {
+            // We dynamically theme this sub-section of the layout to match the selected
+            // 'top podcast'
+            val (mainCard, weekCard) = createRefs()
+            createVerticalChain(mainCard, weekCard, chainStyle = ChainStyle.Packed)
+            LazyColumn(modifier = Modifier.constrainAs(mainCard) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(weekCard.top, margin = 4.dp)
+            }) {
 
-            item {
+                item {
 
 
-                if (weatherList != null)
-                MainCard(weatherList!!.description,
-                    weatherList!!.temp, weatherList!!.temp_max,
-                weatherList!!.temp_min, weatherList!!.name)
+                    if (weatherList != null)
+                        MainCard(weatherList!!.description,
+                            weatherList!!.temp, weatherList!!.temp_max,
+                            weatherList!!.temp_min, weatherList!!.name)
+                }
+                item {
+                    Spacer(modifier = Modifier.padding(16.dp))
+                }
+                item {
+                    if (forecastList.isNotEmpty())
+                        WeatherDaily(forecastList)
+                }
+
             }
-            item {
-                Spacer(modifier = Modifier.padding(16.dp))
-            }
-            item {
-                if (forecastList.isNotEmpty())
-                WeatherDaily(forecastList)
-            }
 
-        }
+            Column(modifier = Modifier.constrainAs(weekCard) {
+                top.linkTo(mainCard.bottom)
+                bottom.linkTo(parent.bottom)
+            }) {
+                val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
+                val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
+                val lst: List<WeeklyItem> =
+                    listOf(weeku, weeku, weeku, weeku, weeku, weeku, weeku)
 
-        Column(modifier = Modifier.constrainAs(weekCard) {
-            top.linkTo(mainCard.bottom)
-            bottom.linkTo(parent.bottom)
-        }) {
-            val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
-            val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
-            val lst: List<WeeklyItem> =
-                listOf(weeku, weeku, weeku, weeku, weeku, weeku, weeku)
-            if (weeklyForecastList.isNotEmpty())
-            ForecastWeekly( weeklyForecastList)
+                if (weeklyForecastList.isNotEmpty())
+                    ForecastWeekly( weeklyForecastList)
+            }
         }
     }
-}
 }
 
 
@@ -150,31 +151,31 @@ fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double
             elevation = 4.dp,
             backgroundColor = Color.White.copy(alpha = 0.2f),
         ) {
-        Row(modifier = Modifier.padding(2.dp)) {
+            Row(modifier = Modifier.padding(2.dp)) {
 
 
 
-            Image(
-                painter = painterResource(
-                    id = R.drawable.ic_location
-                ),
-                contentDescription = "location",
-            )
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.ic_location
+                    ),
+                    contentDescription = "location",
+                )
 
-            Text(
-                text = name,
-                style = MaterialTheme.typography.body1,
-                color = Color.White,
-            )
-
-        }
-    }
-
-        AnimationSun(Modifier.size(200.dp).constrainAs(image) {
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.body1,
+                    color = Color.White,
+                )
 
             }
+        }
+
+        AnimationSun(Modifier.size(200.dp).constrainAs(image) {
+            top.linkTo(parent.top)
+            end.linkTo(parent.end)
+
+        }
         )
     }
 
