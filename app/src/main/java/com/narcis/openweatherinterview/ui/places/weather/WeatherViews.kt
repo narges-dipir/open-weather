@@ -26,6 +26,8 @@ import com.narcis.openweatherinterview.R
 import com.narcis.openweatherinterview.data.model.ForecastItem
 import com.narcis.openweatherinterview.data.model.WeatherItem
 import com.narcis.openweatherinterview.data.model.WeeklyItem
+import com.narcis.openweatherinterview.ui.widgets.AnimatableSnow
+import com.narcis.openweatherinterview.ui.widgets.AnimationCloud
 
 
 @Composable
@@ -62,12 +64,18 @@ fun WeatherItem(
       Box(modifier = Modifier
           .requiredSize(70.dp)
           .clip(CircleShape)) {
-    Image(painter = painterResource(id =  R.drawable.few_cloud_morning_foreground),
-    contentDescription = "img", modifier = Modifier
-            .width(70.dp)
-            .height(70.dp)
-            .padding(8.dp)
-            .align(Alignment.Center))
+
+          AnimationCloud(modifier = Modifier.
+          width(70.dp)
+              .height(70.dp)
+              .padding(8.dp)
+              .align(Alignment.Center))
+//    Image(painter = painterResource(id =  R.drawable.few_cloud_morning_foreground),
+//    contentDescription = "img", modifier = Modifier
+//            .width(70.dp)
+//            .height(70.dp)
+//            .padding(8.dp)
+//            .align(Alignment.Center))
 
       }
 
@@ -130,13 +138,16 @@ fun ForecastweeklyItem(weekItem: WeeklyItem) {
 
         }) {
 
-            Image(
-                painter = painterResource(id = R.drawable.few_cloud_morning_foreground),
-                contentDescription = "icon",
-                modifier = Modifier
-                    .width(20.dp)
-                    .height(20.dp)
-            )
+//            Image(
+//                painter = painterResource(id = R.drawable.few_cloud_morning_foreground),
+//                contentDescription = "icon",
+//                modifier = Modifier
+//                    .width(20.dp)
+//                    .height(20.dp)
+//            )
+            AnimatableSnow(modifier = Modifier
+                .width(20.dp)
+                .height(20.dp))
 
             Spacer(modifier = Modifier.padding(4.dp))
 
@@ -159,7 +170,7 @@ fun ForecastweeklyItem(weekItem: WeeklyItem) {
 fun previewLocationNoted() {
 
     val weather = WeatherItem(22, "&&" , "77", 2.2, 2.2, 5.5, "fff")
-    val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
+    val weeku = WeeklyItem(500,22.2F, 33.3F, "eeee")
 //    WeatherItem(weather)
     ForecastweeklyItem( weeku)
 }

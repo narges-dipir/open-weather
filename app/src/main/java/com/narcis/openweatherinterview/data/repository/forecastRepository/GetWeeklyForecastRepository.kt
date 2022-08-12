@@ -24,6 +24,7 @@ class GetWeeklyForecastRepository @Inject constructor(
    fun WeeklyList.mapToweeklyItem() : List<WeeklyItem> {
        return this.weeklyList.map { wekly ->
            WeeklyItem(
+              id = wekly.weather[0].id,
                min = wekly.temp.min,
                max = wekly.temp.min,
                description = wekly.weather[0].description

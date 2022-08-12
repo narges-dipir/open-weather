@@ -14,9 +14,11 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.narcis.openweatherinterview.ui.theme.Blue300
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
+
 
 @Composable
 fun AnimatableRains(modifier: Modifier = Modifier, lightRain: Boolean = false) {
@@ -123,18 +125,18 @@ fun RainDrop( modifier: Modifier = Modifier, spacePosition: Float = 0f ) {
             Offset(x, line1y2),
             strokeWidth = width,
             colorFilter = ColorFilter.tint(
-                Color.Black
+                Color.Blue
             ),
             cap = StrokeCap.Round
         )
 
         drawLine(
-            Color.Blue,
+            Blue300,
             Offset(x, line2y1),
             Offset(x, line2y2),
             strokeWidth = width,
             colorFilter = ColorFilter.tint(
-                Color.Black
+                Blue300
             ),
             cap = StrokeCap.Round
         )

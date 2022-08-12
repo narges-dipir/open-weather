@@ -51,7 +51,7 @@ class WeeklyViewModel @Inject constructor(
                 viewState.filter {
                     it is ResultWrapper.Success && !it.data.equals(null)
                 }.mapLatest { it?.data }. collect{weekly ->
-//                    println(" the weekly is : " + weekly)
+                    println(" the weekly is : " + weekly)
                     _weeklyItem.value = weekly!!
                 }
             }

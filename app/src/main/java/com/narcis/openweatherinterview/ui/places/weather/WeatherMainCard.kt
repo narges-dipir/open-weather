@@ -99,10 +99,10 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
                 top.linkTo(mainCard.bottom)
                 bottom.linkTo(parent.bottom)
             }) {
-                val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
-                val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
-                val lst: List<WeeklyItem> =
-                    listOf(weeku, weeku, weeku, weeku, weeku, weeku, weeku)
+//                val weeku = WeeklyItem(22.2F, 33.3F, "eeee")
+//                val weather = WeatherItem(22, "&&", "77", 2.2, 2.2, 5.5, "fff")
+//                val lst: List<WeeklyItem> =
+//                    listOf(weeku, weeku, weeku, weeku, weeku, weeku, weeku)
 
                 if (weeklyForecastList.isNotEmpty())
                     ForecastWeekly( weeklyForecastList)
@@ -197,5 +197,5 @@ fun TopBar(onBackPress: () -> Unit) {
             )
         }
     }
-
 }
+
