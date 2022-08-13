@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
@@ -28,8 +29,7 @@ import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
 import com.narcis.openweatherinterview.ui.places.viewModel.WeeklyViewModel
 import com.narcis.openweatherinterview.ui.viewUtiles.LoadingContent
 import com.narcis.openweatherinterview.ui.viewUtiles.verticalGradientScrim
-import com.narcis.openweatherinterview.ui.widgets.AnimationSun
-import com.narcis.openweatherinterview.ui.widgets.Sun
+import com.narcis.openweatherinterview.ui.widgets.*
 
 @Preview
 @Composable
@@ -78,10 +78,8 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             }) {
 
                 item {
-
-
                     if (weatherList != null)
-                        MainCard(weatherList!!.description,
+                        MainCard(weatherList!!.id,weatherList!!.description,
                             weatherList!!.temp, weatherList!!.temp_max,
                             weatherList!!.temp_min, weatherList!!.name)
                 }
@@ -113,7 +111,8 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
 
 
 @Composable
-fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double, name : String) {
+fun MainCard(id : Int,description: String, temp: Double,
+             tempMax: Double, tempMin: Double, name : String) {
 
     ConstraintLayout(
         modifier = Modifier
@@ -171,12 +170,25 @@ fun MainCard(description: String, temp: Double, tempMax: Double, tempMin: Double
             }
         }
 
-        AnimationSun(Modifier.size(200.dp).constrainAs(image) {
-            top.linkTo(parent.top)
-            end.linkTo(parent.end)
-
+        Box(
+            Modifier
+                .size(200.dp)
+                .constrainAs(image){
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                }) {
+            GetIconAnimation(id = id)
         }
-        )
+
+//        AnimationSun(
+//            Modifier
+//                .size(200.dp)
+//                .constrainAs(image) {
+//                    top.linkTo(parent.top)
+//                    end.linkTo(parent.end)
+//
+//                }
+//        )
     }
 
 
@@ -198,4 +210,90 @@ fun TopBar(onBackPress: () -> Unit) {
         }
     }
 }
+@Composable
+fun GetIconAnimation(id : Int) {
+println(" the iid is : " + id)
+    when (id) {
+        200, 201, 202 -> Box(modifier = Modifier.size(200.dp)) {
+            AnimatableRains(
+                Modifier
+                    .size(175.dp)
+                    .offset(5.dp, 8.dp)
+            )
+            AnimationCloud(
+                Modifier
+                    .size(130.dp)
+                    .align(Alignment.TopCenter)
+            )
+            AnimationThunder(
+                Modifier
+                    .size(20.dp)
+                    .offset(10.dp, 18.dp), 300
+            )
+        }
 
+
+        210, 211, 212, 221, 230, 231, 232 -> @Composable {
+            Box(Modifier.size(40.dp)) {
+                AnimationCloud(Modifier.size(30.dp))
+                AnimationThunder(
+                    Modifier
+                        .size(20.dp)
+                        .offset(10.dp, 18.dp), 300)
+            }
+        }
+
+        300, 301, 302, 310, 311, 312, 313,
+            314, 321 -> @Composable {
+                Box(Modifier.size(40.dp)) {
+                    AnimatableRains(
+                        Modifier
+                            .size(25.dp)
+                            .offset(5.dp, 8.dp), true)
+                    Cloud(
+                        Modifier
+                            .size(30.dp)
+                            .align(Alignment.TopCenter))
+
+                }
+            }
+
+        600, 601, 602, 611, 612,
+            613, 615, 616, 620, 621, 622 -> @Composable {
+                Box(Modifier.size(40.dp)) {
+                    AnimatableSnow(
+                        Modifier
+                            .size(25.dp)
+                            .offset(3.dp, 8.dp))
+                    AnimationCloud(
+                        Modifier
+                            .size(30.dp)
+                            .align(Alignment.TopCenter))
+                }
+            }
+
+        800 -> @Composable {
+            AnimationSun(
+                Modifier
+                    .size(200.dp)
+                    .padding(2.dp)
+            )
+        }
+        801, 802, 803, 804 -> @Composable {
+            Box(Modifier.size(40.dp)) {
+                AnimationSun(
+                    Modifier
+                        .size(40.dp)
+                        .offset(3.dp))
+                AnimationCloud(
+                    Modifier
+                        .size(16.dp)
+                        .offset(8.dp, 18.dp))
+
+            }
+        }
+        else -> @Composable {
+            AnimationCloud(Modifier.size(30.dp))
+        }
+    }
+}

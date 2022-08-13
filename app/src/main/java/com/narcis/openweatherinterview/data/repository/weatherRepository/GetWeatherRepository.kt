@@ -23,7 +23,7 @@ class GetWeatherRepository @Inject constructor(
 
     private fun WeatherResponse.mapWeatherToItems() : WeatherItem {
         return WeatherItem(
-            id = this.id,
+            id = this.weather[0].id,
             name = this.name,
             main = this.weather[0].main,
             description = this.weather[0].description,
