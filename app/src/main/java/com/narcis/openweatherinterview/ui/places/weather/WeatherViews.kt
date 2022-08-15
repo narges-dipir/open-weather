@@ -65,11 +65,12 @@ fun WeatherItem(
           .requiredSize(70.dp)
           .clip(CircleShape)) {
 
-          AnimationCloud(modifier = Modifier.
-          width(70.dp)
-              .height(70.dp)
-              .padding(8.dp)
-              .align(Alignment.Center))
+          GetIconAnimation(id = weatherItem!!.id, modifier = Modifier.size(70.dp))
+//          AnimationCloud(modifier = Modifier
+//              .width(70.dp)
+//              .height(70.dp)
+//              .padding(8.dp)
+//              .align(Alignment.Center))
 //    Image(painter = painterResource(id =  R.drawable.few_cloud_morning_foreground),
 //    contentDescription = "img", modifier = Modifier
 //            .width(70.dp)
@@ -145,9 +146,11 @@ fun ForecastweeklyItem(weekItem: WeeklyItem) {
 //                    .width(20.dp)
 //                    .height(20.dp)
 //            )
-            AnimatableSnow(modifier = Modifier
-                .width(20.dp)
-                .height(20.dp))
+
+            GetIconAnimation(id = weekItem.id, Modifier.size(20.dp))
+//            AnimatableSnow(modifier = Modifier
+//                .width(20.dp)
+//                .height(20.dp))
 
             Spacer(modifier = Modifier.padding(4.dp))
 

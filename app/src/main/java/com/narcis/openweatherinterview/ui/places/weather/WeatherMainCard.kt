@@ -177,7 +177,7 @@ fun MainCard(id : Int,description: String, temp: Double,
                     top.linkTo(parent.top)
                     end.linkTo(parent.end)
                 }) {
-            GetIconAnimation(id = id)
+            GetIconAnimation(id = id, modifier = Modifier.size(200.dp))
         }
 
 //        AnimationSun(
@@ -211,16 +211,16 @@ fun TopBar(onBackPress: () -> Unit) {
     }
 }
 @Composable
-fun GetIconAnimation(id : Int) {
+fun GetIconAnimation(id : Int, modifier: Modifier = Modifier) {
 println(" the iid is : " + id)
     when (id) {
-        200, 201, 202 -> Box(modifier = Modifier.size(200.dp)) {
+        200, 201, 202 -> Box(modifier = modifier) {
             AnimatableRains(
                 Modifier
                     .size(175.dp)
                     .offset(5.dp, 8.dp)
             )
-            AnimationCloud(
+            Cloud(
                 Modifier
                     .size(130.dp)
                     .align(Alignment.TopCenter)
@@ -234,8 +234,8 @@ println(" the iid is : " + id)
 
 
         210, 211, 212, 221, 230, 231, 232 -> @Composable {
-            Box(Modifier.size(40.dp)) {
-                AnimationCloud(Modifier.size(30.dp))
+            Box(modifier) {
+                Cloud(modifier)
                 AnimationThunder(
                     Modifier
                         .size(20.dp)
@@ -244,28 +244,34 @@ println(" the iid is : " + id)
         }
 
         300, 301, 302, 310, 311, 312, 313,
-            314, 321 -> @Composable {
-                Box(Modifier.size(40.dp)) {
+            314, 321-> @Composable {
+                Box(modifier) {
                     AnimatableRains(
                         Modifier
-                            .size(25.dp)
-                            .offset(5.dp, 8.dp), true)
+                            .size(130.dp).offset(5.dp, 60.dp), true)
                     Cloud(
-                        Modifier
-                            .size(30.dp)
-                            .align(Alignment.TopCenter))
+                            modifier.align(Alignment.TopCenter))
 
                 }
             }
 
+      500, 501, 502, 503,504,
+        511, 520, 521, 522, 531-> @Composable {
+            Box(modifier) {
+                AnimatableRains(
+                    Modifier
+                        .size(130.dp).offset(20.dp, 60.dp), false)
+                Cloud(
+                    modifier.align(Alignment.TopCenter))
+
+            }
+        }
         600, 601, 602, 611, 612,
             613, 615, 616, 620, 621, 622 -> @Composable {
-                Box(Modifier.size(40.dp)) {
+                Box(modifier) {
                     AnimatableSnow(
-                        Modifier
-                            .size(25.dp)
-                            .offset(3.dp, 8.dp))
-                    AnimationCloud(
+                            modifier.offset(3.dp, 8.dp))
+                    Cloud(
                         Modifier
                             .size(30.dp)
                             .align(Alignment.TopCenter))
@@ -274,26 +280,22 @@ println(" the iid is : " + id)
 
         800 -> @Composable {
             AnimationSun(
-                Modifier
-                    .size(200.dp)
-                    .padding(2.dp)
+                    modifier.padding(2.dp)
             )
         }
         801, 802, 803, 804 -> @Composable {
-            Box(Modifier.size(40.dp)) {
+            Box(modifier = modifier) {
                 AnimationSun(
+                    modifier.offset(3.dp))
+                Cloud(
                     Modifier
-                        .size(40.dp)
-                        .offset(3.dp))
-                AnimationCloud(
-                    Modifier
-                        .size(16.dp)
-                        .offset(8.dp, 18.dp))
+                        .size(116.dp)
+                        .offset(8.dp, 60.dp))
 
             }
         }
         else -> @Composable {
-            AnimationCloud(Modifier.size(30.dp))
+            AnimationCloud(modifier)
         }
     }
 }

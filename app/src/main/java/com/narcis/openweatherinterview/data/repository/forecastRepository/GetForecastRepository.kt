@@ -21,6 +21,7 @@ class GetForecastRepository @Inject constructor(
 
     private fun ForecastList.mapToForecastItem() : List<ForecastItem> {
         return this.list.map { item ->  ForecastItem(
+            id = item.weather[0].id,
             temp = item.main.temp,
             temp_min = item.main.tempMin,
             temp_max = item.main.tempMax,
