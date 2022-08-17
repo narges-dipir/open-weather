@@ -3,6 +3,7 @@ package com.narcis.database.data.weather.daily.entities
 import android.content.ClipDescription
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.narcis.openweatherinterview.data.model.weatherObjects.Main
 
 
 @Entity(
@@ -12,6 +13,7 @@ import androidx.room.Entity
 data class WeatherEntity(
 
     @ColumnInfo(name = WeatherSchema.ID) val id : Int,
+    @ColumnInfo(name = WeatherSchema.MAIN) val main: String,
     @ColumnInfo(name = WeatherSchema.NAME) val name : String,
     @ColumnInfo(name = WeatherSchema.DESCRIPTION) val description: String,
     @ColumnInfo(name = WeatherSchema.TEMP) val temp : Double,
