@@ -1,9 +1,9 @@
-package com.narcis.openweatherinterview.ui.places.viewModel
+package com.narcis.openweatherinterview.ui.viewModel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
+
 import com.narcis.openweatherinterview.data.model.LocationModel
 import com.narcis.openweatherinterview.data.model.WeatherItem
 import com.narcis.openweatherinterview.domain.ResultWrapper
@@ -23,6 +23,7 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     getCurrentLocationUseCase: GetCurrentLocationUseCase,
+//    private val saveWeatherItem: SaveWeatherItemUseCase
 ): ViewModel() {
     private val getWeather = MutableSharedFlow<LatLng?>()
     private val _errorMessage = Channel<String>(1, BufferOverflow.DROP_LATEST)
@@ -70,6 +71,7 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
             weather.let {
                 println(" the weather is : " + weather)
                 _weatherItem.value = weather
+//                saveWeather(weather!!)
             }
 
         }
@@ -84,5 +86,11 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
             getWeather.emit(null)
         }
     }
+
+//    fun saveWeather(weatherItem: WeatherItem) {
+//        viewModelScope.launch {
+//            saveWeatherItem(weatherItem)
+//        }
+//    }
 
 }

@@ -2,12 +2,13 @@ package com.narcis.database.data.weather.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.narcis.database.data.weather.daily.entities.WeatherEntity
 import com.narcis.database.data.weather.daily.tableDao.WeatherDao
 
 
 @Database(
     entities = [
-        WeatherDao::class
+        WeatherEntity::class
     ],
     version = 1
 )

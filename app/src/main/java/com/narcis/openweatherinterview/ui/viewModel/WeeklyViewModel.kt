@@ -1,4 +1,4 @@
-package com.narcis.openweatherinterview.ui.places.viewModel
+package com.narcis.openweatherinterview.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

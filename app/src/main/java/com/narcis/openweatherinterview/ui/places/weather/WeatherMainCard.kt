@@ -10,11 +10,8 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,11 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.narcis.openweatherinterview.R
-import com.narcis.openweatherinterview.data.model.WeatherItem
-import com.narcis.openweatherinterview.data.model.WeeklyItem
-import com.narcis.openweatherinterview.ui.places.viewModel.ForecastViewModel
-import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
-import com.narcis.openweatherinterview.ui.places.viewModel.WeeklyViewModel
+import com.narcis.openweatherinterview.ui.viewModel.ForecastViewModel
+import com.narcis.openweatherinterview.ui.viewModel.WeatherViewModel
+import com.narcis.openweatherinterview.ui.viewModel.WeeklyViewModel
 import com.narcis.openweatherinterview.ui.viewUtiles.LoadingContent
 import com.narcis.openweatherinterview.ui.viewUtiles.verticalGradientScrim
 import com.narcis.openweatherinterview.ui.widgets.*

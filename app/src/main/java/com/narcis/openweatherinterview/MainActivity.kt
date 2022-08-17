@@ -8,20 +8,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.narcis.openweatherinterview.ui.places.viewModel.ForecastViewModel
-import com.narcis.openweatherinterview.ui.places.viewModel.WeatherViewModel
-import com.narcis.openweatherinterview.ui.places.viewModel.WeeklyViewModel
+import com.narcis.openweatherinterview.ui.viewModel.ForecastViewModel
+import com.narcis.openweatherinterview.ui.viewModel.WeatherViewModel
+import com.narcis.openweatherinterview.ui.viewModel.WeeklyViewModel
 import com.narcis.openweatherinterview.ui.places.weather.WeatherContent
 import com.narcis.openweatherinterview.ui.theme.OpenWeatherInterviewTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
  @AndroidEntryPoint

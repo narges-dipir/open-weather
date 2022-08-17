@@ -4,6 +4,7 @@ buildscript {
         ext.hilt_version = '2.41'
         ext.kotlin_version = '1.6.21'
         ext.retrofit_verison = '2.9.0'
+
     }
 
 
@@ -20,7 +21,11 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 
-
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += "-Xopt-in=io.ktor.util.KtorExperimentalAPI"
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

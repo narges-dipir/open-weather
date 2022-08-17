@@ -1,10 +1,11 @@
-package com.narcis.openweatherinterview.ui.places.viewModel
+package com.narcis.openweatherinterview.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.narcis.openweatherinterview.data.model.ForecastItem
 import com.narcis.openweatherinterview.data.model.LocationModel
+import com.narcis.openweatherinterview.data.model.WeatherItem
 import com.narcis.openweatherinterview.domain.ResultWrapper
 import com.narcis.openweatherinterview.domain.data
 import com.narcis.openweatherinterview.domain.useCase.GetCurrentLocationUseCase
@@ -67,4 +68,6 @@ class ForecastViewModel @Inject constructor(
             getForeCast.emit(null)
         }
     }
+
+
 }
