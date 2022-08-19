@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.migration.Migration
 import com.narcis.database.data.weather.daily.tableDao.WeatherDao
+import com.narcis.database.data.weather.daily.weatherDatastore.IWeatherItemDatastore
+import com.narcis.database.data.weather.daily.weatherDatastore.WeatherItemDatastore
 import com.narcis.database.data.weather.db.*
 import com.narcis.database.data.weather.db.JsonConverter
 import com.narcis.database.data.weather.db.MIGRATIONS
@@ -42,13 +44,24 @@ internal object DatabaseModule {
 
     }
 
-    @Provides
-    @Singleton
-    fun provideJsonConverter(moshi: Moshi) : JsonConverter = JsonConverter(moshi)
+//    @Provides
+//    @Singleton
+//    @ExperimentalStdlibApi
+//    fun provideJsonConverter(moshi: Moshi) : JsonConverter = JsonConverter(moshi)
 
     @Provides
     @Singleton
-    fun provideWeatherItemMapper(jsonConverter: JsonConverter) : WeatherItemMapperImp {
-        return WeatherItemMapperImp(jsonConverter)
+    @ExperimentalStdlibApi
+    fun provideWeatherItemMapper() : WeatherItemMapper {
+        return WeatherItemMapperImp()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherItemDataStore(
+        weatherDao: WeatherDao,
+        weatherItemMapper: WeatherItemMapper
+    ) : IWeatherItemDatastore {
+        return WeatherItemDatastore(weatherDao, weatherItemMapper)
     }
 }

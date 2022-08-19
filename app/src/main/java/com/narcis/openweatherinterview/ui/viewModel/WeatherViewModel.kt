@@ -3,11 +3,13 @@ package com.narcis.openweatherinterview.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
+import com.narcis.database.domain.weather.SaveWeatherItemUseCase
+import com.narcis.model.domain.ResultWrapper
+import com.narcis.model.domain.data
 
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.data.model.WeatherItem
-import com.narcis.openweatherinterview.domain.ResultWrapper
-import com.narcis.openweatherinterview.domain.data
+import com.narcis.model.weatherActions.LocationModel
+import com.narcis.model.weatherActions.WeatherItem
+
 import com.narcis.openweatherinterview.domain.useCase.GetCurrentLocationUseCase
 import com.narcis.openweatherinterview.domain.useCase.weather.GetCurrentWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +25,7 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     getCurrentLocationUseCase: GetCurrentLocationUseCase,
-//    private val saveWeatherItem: SaveWeatherItemUseCase
+    private val saveWeatherItem: SaveWeatherItemUseCase
 ): ViewModel() {
     private val getWeather = MutableSharedFlow<LatLng?>()
     private val _errorMessage = Channel<String>(1, BufferOverflow.DROP_LATEST)
@@ -44,8 +46,10 @@ class WeatherViewModel @Inject constructor(
                 _errorMessage.trySend(it.exception.message ?: "Error")
             }
         }.flatMapLatest { locationModel ->
-            getCurrentWeatherUseCase(LocationModel(locationModel.data?.lat ?: 0.0,
-                locationModel.data?.long ?: 0.0))
+            getCurrentWeatherUseCase(
+                LocationModel(locationModel.data?.lat ?: 0.0,
+                locationModel.data?.long ?: 0.0)
+            )
         }.onEach {
             if (it is ResultWrapper.Error){
                 _errorMessage.trySend(it.exception.message ?: "Error")
@@ -71,7 +75,7 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
             weather.let {
                 println(" the weather is : " + weather)
                 _weatherItem.value = weather
-//                saveWeather(weather!!)
+                saveWeather(weather!!)
             }
 
         }
@@ -87,10 +91,10 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
         }
     }
 
-//    fun saveWeather(weatherItem: WeatherItem) {
-//        viewModelScope.launch {
-//            saveWeatherItem(weatherItem)
-//        }
-//    }
+    fun saveWeather(weatherItem: WeatherItem) {
+        viewModelScope.launch {
+            saveWeatherItem(weatherItem)
+        }
+    }
 
 }

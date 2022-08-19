@@ -3,10 +3,10 @@ package com.narcis.openweatherinterview.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.data.model.WeeklyItem
-import com.narcis.openweatherinterview.domain.ResultWrapper
-import com.narcis.openweatherinterview.domain.data
+import com.narcis.model.domain.ResultWrapper
+import com.narcis.model.domain.data
+import com.narcis.model.weatherActions.LocationModel
+import com.narcis.model.weatherActions.WeeklyItem
 import com.narcis.openweatherinterview.domain.useCase.GetCurrentLocationUseCase
 import com.narcis.openweatherinterview.domain.useCase.forecast.GetWeeklyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

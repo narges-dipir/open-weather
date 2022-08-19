@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 rootProject.name = "Open Weather interview"
 include ':app'
 include ':database'
+include ':model'

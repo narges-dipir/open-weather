@@ -2,12 +2,11 @@ package com.narcis.openweatherinterview.data.dataSource
 
 import android.Manifest
 import android.content.Context
-import android.location.Location
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationToken
-import com.narcis.openweatherinterview.data.model.LocationModel
+import com.narcis.model.weatherActions.LocationModel
 import com.narcis.openweatherinterview.data.model.toDataModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow

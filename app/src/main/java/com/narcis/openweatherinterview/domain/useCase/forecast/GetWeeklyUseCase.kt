@@ -1,11 +1,11 @@
 package com.narcis.openweatherinterview.domain.useCase.forecast
 
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.data.model.WeeklyItem
+import com.narcis.model.di.IoDispatcher
+import com.narcis.model.domain.ResultWrapper
+import com.narcis.model.weatherActions.LocationModel
+import com.narcis.model.weatherActions.WeeklyItem
 import com.narcis.openweatherinterview.data.repository.forecastRepository.IGetWeeklyForecastRepository
-import com.narcis.openweatherinterview.di.IoDispatcher
-import com.narcis.openweatherinterview.domain.ResultWrapper
-import com.narcis.openweatherinterview.utils.FlowUseCase
+import com.narcis.model.domain.FlowUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

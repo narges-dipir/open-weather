@@ -1,8 +1,8 @@
 package com.narcis.openweatherinterview.data.dataSource
 
 import com.narcis.openweatherinterview.data.api.weather.GetNearByWeather
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.data.model.weatherObjects.WeeklyList
+import com.narcis.model.weatherActions.LocationModel
+import com.narcis.model.weatherObjects.WeeklyList
 import javax.inject.Inject
 import javax.inject.Singleton
 

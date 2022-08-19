@@ -1,6 +1,7 @@
 package com.narcis.database.domain
 
-import com.narcis.openweatherinterview.domain.ResultWrapper
+
+import com.narcis.model.domain.ResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.lang.RuntimeException

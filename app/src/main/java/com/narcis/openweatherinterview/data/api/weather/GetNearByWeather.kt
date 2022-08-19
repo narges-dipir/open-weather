@@ -1,12 +1,10 @@
 package com.narcis.openweatherinterview.data.api.weather
 
-import com.narcis.openweatherinterview.data.model.ForecastList
-import com.narcis.openweatherinterview.data.model.ForecastResponse
-import com.narcis.openweatherinterview.data.model.WeatherResponse
-import com.narcis.openweatherinterview.data.model.weatherObjects.WeeklyList
+import com.narcis.model.weatherActions.ForecastList
+import com.narcis.model.weatherActions.WeatherResponse
+import com.narcis.model.weatherObjects.WeeklyList
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.lang.Exception
 
 interface GetNearByWeather {
 

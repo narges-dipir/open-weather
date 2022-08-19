@@ -1,10 +1,9 @@
 package com.narcis.openweatherinterview.data.repository.locationRepository
 
+import com.narcis.model.domain.ResultWrapper
 import com.narcis.openweatherinterview.data.dataSource.ILocationRemoteDataSource
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.domain.ResultWrapper
+import com.narcis.model.weatherActions.LocationModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 

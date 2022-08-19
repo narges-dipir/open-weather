@@ -1,8 +1,8 @@
 package com.narcis.openweatherinterview.data.repository.weatherRepository
 
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.data.model.WeatherItem
-import com.narcis.openweatherinterview.domain.ResultWrapper
+import com.narcis.model.domain.ResultWrapper
+import com.narcis.model.weatherActions.LocationModel
+import com.narcis.model.weatherActions.WeatherItem
 import kotlinx.coroutines.flow.Flow
 
 interface IGetWeatherRepository {

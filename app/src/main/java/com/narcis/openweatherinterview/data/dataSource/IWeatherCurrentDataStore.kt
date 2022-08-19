@@ -1,7 +1,7 @@
 package com.narcis.openweatherinterview.data.dataSource
 
-import com.narcis.openweatherinterview.data.model.LocationModel
-import com.narcis.openweatherinterview.data.model.WeatherResponse
+import com.narcis.model.weatherActions.LocationModel
+import com.narcis.model.weatherActions.WeatherResponse
 
 interface IWeatherCurrentDataStore {
     suspend fun getWeatherDataSource(latLng : LocationModel)

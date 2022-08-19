@@ -1,6 +1,6 @@
 package com.narcis.openweatherinterview.data.dataSource
 
-import com.narcis.openweatherinterview.data.model.LocationModel
+import com.narcis.model.weatherActions.LocationModel
 import kotlinx.coroutines.flow.Flow
 
 

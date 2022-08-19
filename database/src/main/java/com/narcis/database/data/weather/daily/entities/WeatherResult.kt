@@ -1,9 +1,7 @@
 package com.narcis.database.data.weather.daily.entities
 
-import android.content.ClipDescription
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.narcis.openweatherinterview.data.model.weatherObjects.Main
 
 
 @Entity(
