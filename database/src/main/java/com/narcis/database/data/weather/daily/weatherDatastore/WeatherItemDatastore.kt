@@ -25,9 +25,10 @@ internal class WeatherItemDatastore @Inject constructor(
        )
     }
 
-    override suspend fun getWeatherItem(): Flow<ResultWrapper<List<WeatherItem>>> {
-       return weatherDao.getWeatherItems().toListDataWeatherFlow()
+    override fun getWeatherItem(): Flow<ResultWrapper<List<WeatherItem>>> {
+        return weatherDao.getWeatherItems().toListDataWeatherFlow()
     }
+
 
     override suspend fun getWeatherItemByName(name: String): WeatherItem? {
         val weather =  weatherDao.getWeatherItemByName(name)
