@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface IWeatherItemDatastore {
     suspend fun saveWeatherItem(weatherItem: WeatherItem)
     fun getWeatherItem() : Flow<ResultWrapper<List<WeatherItem>>>
-    suspend fun getWeatherItemByName(name: String) : WeatherItem?
+    fun getWeatherItemByName(name: String) : Flow<ResultWrapper<WeatherItem>>
 }

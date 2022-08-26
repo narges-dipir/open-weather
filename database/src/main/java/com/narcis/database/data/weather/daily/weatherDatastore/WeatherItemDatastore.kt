@@ -30,12 +30,8 @@ internal class WeatherItemDatastore @Inject constructor(
     }
 
 
-    override suspend fun getWeatherItemByName(name: String): WeatherItem? {
-        val weather =  weatherDao.getWeatherItemByName(name)
-        return if (weather != null)
-         weather
-        else
-            return null
+    override fun getWeatherItemByName(name: String): Flow<ResultWrapper<WeatherItem>> {
+        return weatherDao.getWeatherItemByName(name).toDataWeatherFlow()
     }
 
 
@@ -46,14 +42,29 @@ internal class WeatherItemDatastore @Inject constructor(
         }
     }
 
-private suspend fun List<WeatherEntity>.toDataWeather() : List<WeatherItem> {
+private fun List<WeatherEntity>.toDataWeather() : List<WeatherItem> {
     return this.map {
         weatherItemMapper.mapToDataWeatherItem(it)
     }
 }
+    private fun Flow<WeatherEntity>.toDataWeatherFlow() : Flow<ResultWrapper<WeatherItem>> {
+        return this.map { items ->
+            ResultWrapper.Success(items.toWeather())
 
+        }
+    }
+    private fun WeatherEntity.toWeather() : WeatherItem {
+        return WeatherItem(
+          id = this.id,
+         main = this.main,
+         description = this.description,
+         temp = this.temp,
+         temp_min = this.tempMin,
+         temp_max = this.tempMax,
+         name = this.name
 
-
+        )
+        }
 
 }
 

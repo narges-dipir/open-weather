@@ -48,6 +48,7 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
     val weeklyForecastList by foreCastWeeklyViewModel.weeklyResultByLocation.collectAsState()
     val weeklyLoading by foreCastWeeklyViewModel.isLoading.collectAsState()
 
+    val allWth by weatherViewModel.getAllState.collectAsState()
 
     ConstraintLayout(
         modifier = Modifier
@@ -65,6 +66,12 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             // 'top podcast'
             val (mainCard, weekCard) = createRefs()
             createVerticalChain(mainCard, weekCard, chainStyle = ChainStyle.Packed)
+
+            allWth?.forEach {
+                println(" the ge is : " + it.description + " " + it.temp + " "
+                + it.name)
+            }
+
             LazyColumn(modifier = Modifier.constrainAs(mainCard) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -168,7 +175,7 @@ fun MainCard(id : Int,description: String, temp: Double,
         Box(
             Modifier
                 .size(200.dp)
-                .constrainAs(image){
+                .constrainAs(image) {
                     top.linkTo(parent.top)
                     end.linkTo(parent.end)
                 }) {
@@ -243,7 +250,8 @@ println(" the iid is : " + id)
                 Box(modifier) {
                     AnimatableRains(
                         Modifier
-                            .size(130.dp).offset(5.dp, 60.dp), true)
+                            .size(130.dp)
+                            .offset(5.dp, 60.dp), true)
                     Cloud(
                             modifier.align(Alignment.TopCenter))
 
@@ -255,7 +263,8 @@ println(" the iid is : " + id)
             Box(modifier) {
                 AnimatableRains(
                     Modifier
-                        .size(130.dp).offset(20.dp, 60.dp), false)
+                        .size(130.dp)
+                        .offset(20.dp, 60.dp), false)
                 Cloud(
                     modifier.align(Alignment.TopCenter))
 

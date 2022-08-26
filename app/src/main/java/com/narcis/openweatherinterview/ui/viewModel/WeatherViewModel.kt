@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.narcis.database.domain.weather.GetAllWeatherItemsUseCase
+import com.narcis.database.domain.weather.GetWeatherByNameUseCase
 import com.narcis.database.domain.weather.SaveWeatherItemUseCase
 import com.narcis.model.domain.ResultWrapper
 import com.narcis.model.domain.data
@@ -27,7 +28,8 @@ class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     getCurrentLocationUseCase: GetCurrentLocationUseCase,
     private val saveWeatherItem: SaveWeatherItemUseCase,
-    private val getAllWeatherItemsUseCase: GetAllWeatherItemsUseCase
+    private val getAllWeatherItemsUseCase: GetAllWeatherItemsUseCase,
+    private val getWeatherByNameUseCase: GetWeatherByNameUseCase
 ): ViewModel() {
     private val getWeather = MutableSharedFlow<LatLng?>()
     private val _errorMessage = Channel<String>(1, BufferOverflow.DROP_LATEST)
@@ -65,11 +67,14 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
 }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private val _getAllState = MutableStateFlow<List<WeatherItem>?>(null)
+    val getAllState : StateFlow<List<WeatherItem>?> = _getAllState
+    private val _getByNameState = MutableStateFlow<WeatherItem?>(null)
+    val getByNameState : StateFlow<WeatherItem?> = _getByNameState
 
 
 
     init {
-
+        getAllWeathers()
     viewModelScope.launch {
 
     viewState.filter {
@@ -111,6 +116,17 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
             }
         }
 
+    }
+
+    private fun getWeatherByName(name: String) {
+        viewModelScope.launch {
+            getWeatherByNameUseCase(name).collect{
+                if(it.data == null) {
+                    _getByNameState.value = null
+                } else
+                    _getByNameState.value = it.data
+            }
+        }
     }
 
 }

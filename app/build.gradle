@@ -109,6 +109,7 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
 
-
+    // test
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 
 }
