@@ -72,6 +72,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-tasks:16.0.1'
     // open weather
 
     // hilt
@@ -114,5 +115,5 @@ dependencies {
     implementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "io.mockk:mockk:1.10.6"
     implementation 'com.github.javafaker:javafaker:1.0.2'
-
+    implementation("app.cash.turbine:turbine-jvm:0.5.2")
 }
