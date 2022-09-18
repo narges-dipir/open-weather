@@ -12,6 +12,6 @@ class WeatherCurrentDataSource @Inject constructor(
     private val getNearByWeather: GetNearByWeather
 ) : IWeatherCurrentDataStore {
     override suspend fun getWeatherDataSource(latLng: LocationModel): WeatherResponse {
-        return  getNearByWeather.getNearByWeather(latLng.lat.toString(), latLng.long.toString()) }
-
+        return  getNearByWeather.getNearByWeather(latLng.lat.toString(), latLng.long.toString())
+    }
 }

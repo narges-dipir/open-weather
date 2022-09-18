@@ -6,9 +6,6 @@ buildscript {
         ext.retrofit_verison = '2.9.0'
 
     }
-
-
-
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"

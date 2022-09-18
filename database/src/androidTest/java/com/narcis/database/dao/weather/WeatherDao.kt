@@ -43,7 +43,6 @@ class WeatherDao {
         weatherDao.saveWeatherItem(weatherB)
         weatherItem = weatherDao.getWeatherItemByName(weatherB.name).first().toWeather()
 
-        println(" %%% " + weatherItem)
         Assert.assertEquals(weatherB.toWeather(), weatherItem)
     }
     }

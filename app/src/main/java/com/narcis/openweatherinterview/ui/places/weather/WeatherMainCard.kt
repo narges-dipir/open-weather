@@ -41,6 +41,7 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
                    foreCastWeeklyViewModel: WeeklyViewModel) {
     val weatherList by weatherViewModel.weatherResultsByLocation.collectAsState()
     val isLoading by weatherViewModel.isLoading.collectAsState()
+    val errorWth = weatherViewModel.errorMessage.collectAsState(initial = 0)
 
     val forecastList by forecastViewModel.forecastResultByLocation.collectAsState()
     val forecastLoading by forecastViewModel.isLoading.collectAsState()
@@ -49,6 +50,7 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
     val weeklyLoading by foreCastWeeklyViewModel.isLoading.collectAsState()
 
     val allWth by weatherViewModel.getAllState.collectAsState()
+
 
     ConstraintLayout(
         modifier = Modifier
@@ -61,6 +63,7 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             .systemBarsPadding()
             .padding(horizontal = 8.dp)
     ) {
+        println("the errror " + errorWth.value)
         LoadingContent(loading = weeklyLoading) {
             // We dynamically theme this sub-section of the layout to match the selected
             // 'top podcast'
