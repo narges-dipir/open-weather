@@ -116,4 +116,5 @@ dependencies {
     testImplementation "io.mockk:mockk:1.10.6"
     implementation 'com.github.javafaker:javafaker:1.0.2'
     implementation("app.cash.turbine:turbine-jvm:0.5.2")
+    implementation "com.dropbox.mobile.store:store4:$store_version"
 }

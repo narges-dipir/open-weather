@@ -1,9 +1,10 @@
 buildscript {
     ext {
-        compose_version = '1.2.0-rc02'
+        compose_version = '1.2.0-beta02'
         ext.hilt_version = '2.41'
         ext.kotlin_version = '1.6.21'
         ext.retrofit_verison = '2.9.0'
+        ext.store_version = '4.0.5'
 
     }
     dependencies {
