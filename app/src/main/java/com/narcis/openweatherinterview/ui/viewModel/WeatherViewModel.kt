@@ -27,7 +27,6 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     getCurrentLocationUseCase: GetCurrentLocationUseCase,
-    private val saveWeatherItem: SaveWeatherItemUseCase,
     private val getAllWeatherItemsUseCase: GetAllWeatherItemsUseCase,
     private val getWeatherByNameUseCase: GetWeatherByNameUseCase
 ): ViewModel() {
@@ -82,9 +81,7 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
         .mapLatest { it?.data }
         .collect{ weather ->
             weather.let {
-                println(" the weather is : " + weather)
                 _weatherItem.value = weather
-                saveWeather(weather!!)
             }
 
         }
@@ -100,11 +97,7 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
         }
     }
 
-    fun saveWeather(weatherItem: WeatherItem) {
-        viewModelScope.launch {
-            saveWeatherItem(weatherItem)
-        }
-    }
+
 
     private fun getAllWeathers()  {
         viewModelScope.launch {
