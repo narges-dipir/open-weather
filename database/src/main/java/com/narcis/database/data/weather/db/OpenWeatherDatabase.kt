@@ -10,7 +10,7 @@ import com.narcis.database.data.weather.daily.tableDao.WeatherDao
     entities = [
         WeatherEntity::class
     ],
-    version = 1
+    version = 2
 )
 internal abstract class OpenWeatherDatabase : RoomDatabase() {
     abstract val weatherDao : WeatherDao

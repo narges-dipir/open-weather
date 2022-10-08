@@ -2,6 +2,7 @@ package com.narcis.database.data.weather.daily.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.narcis.model.weatherActions.LocationModel
 
 
 @Entity(
@@ -17,6 +18,8 @@ data class WeatherEntity(
     @ColumnInfo(name = WeatherSchema.TEMP) val temp : Double,
     @ColumnInfo(name = WeatherSchema.TEMP_MAX) val tempMax : Double,
     @ColumnInfo(name = WeatherSchema.TEMP_MIN) val tempMin : Double,
+    @ColumnInfo(name = WeatherSchema.LAT) val lat: Double,
+    @ColumnInfo(name = WeatherSchema.LONG) val lng: Double
 
 ) {
     object WeatherSchema {
@@ -28,6 +31,8 @@ data class WeatherEntity(
         const val TEMP_MIN = "tempMin"
         const val TEMP_MAX = "tempMax"
         const val NAME = "name"
+        const val LAT = "latitude"
+        const val LONG = "long"
 
     }
 }

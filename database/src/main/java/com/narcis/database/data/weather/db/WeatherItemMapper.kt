@@ -19,7 +19,9 @@ internal class WeatherItemMapperImp : WeatherItemMapper {
             weatherEntity.temp,
             weatherEntity.tempMin,
             weatherEntity.tempMax,
-            weatherEntity.name
+            weatherEntity.name,
+            weatherEntity.lat,
+            weatherEntity.lng
         )
     }
 
@@ -31,7 +33,9 @@ internal class WeatherItemMapperImp : WeatherItemMapper {
             weatherItem.description,
             weatherItem.temp,
             weatherItem.temp_min,
-            weatherItem.temp_max)
+            weatherItem.temp_max,
+            weatherItem.lat,
+            weatherItem.lng)
     }
 
 

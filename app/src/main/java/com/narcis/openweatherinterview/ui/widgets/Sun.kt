@@ -4,6 +4,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -22,53 +23,56 @@ import kotlin.math.sin
 @Composable
 fun AnimationSun(modifier: Modifier = Modifier) {
  val transient = rememberInfiniteTransition()
-
+ val a : State<Float> = transient.animateFloat(initialValue = 0f,
+     targetValue = 360f, animationSpec = infiniteRepeatable(tween(8000),
+         RepeatMode.Reverse))
     val animateTween by transient.animateFloat(initialValue = 0f,
         targetValue = 360f, animationSpec = infiniteRepeatable(tween(8000),
         RepeatMode.Reverse))
 
     Canvas(modifier.rotate(animateTween)) {
 
-        val radius = size.width / 6
-        val stroke = size.width / 20
-        val centerOffset = Offset(size.width / 30, size.width / 30)
+        val radius = {  size.width / 6}
+        val stroke = {size.width / 20 }
+        val centerOffset = {Offset(size.width / 30, size.width / 30) }
+        val centerValue = { center + centerOffset() }
 
         // draw circle
         drawCircle(
             color = OrangeLittle,
-            radius = radius + stroke / 2,
-            style = Stroke(width = stroke),
-            center = center + centerOffset
+            radius = radius() + stroke() / 2,
+            style = Stroke(width = stroke()),
+            center = centerValue()
         )
         drawCircle(
             color = Color.White,
-            radius = radius,
+            radius = radius(),
             style = Fill,
-            center = center + centerOffset
+            center = centerValue()
         )
 
         // draw line
 
-        val lineLength = radius * 0.6f
-        val lineOffset = radius * 1.8f
+        val lineLength = {radius() * 0.6f }
+        val lineOffset = {radius() * 1.8f }
         (0..7).forEach { i ->
 
-            val radians = Math.toRadians(i * 45.0)
+            val radians = {Math.toRadians(i * 45.0)}
 
-            val offsetX = lineOffset * cos(radians).toFloat()
-            val offsetY = lineOffset * sin(radians).toFloat()
+            val offsetX = {lineOffset() * cos(radians()).toFloat() }
+            val offsetY = { lineOffset() * sin(radians()).toFloat() }
 
-            val x1 = size.width / 2 + offsetX + centerOffset.x
-            val x2 = x1 + lineLength * cos(radians).toFloat()
+            val x1 = {size.width / 2 + offsetX() + centerOffset().x }
+            val x2 = { x1() + lineLength() * cos(radians()).toFloat() }
 
-            val y1 = size.height / 2 + offsetY + centerOffset.y
-            val y2 = y1 + lineLength * sin(radians).toFloat()
+            val y1 = {size.height / 2 + offsetY() + centerOffset().y}
+            val y2 = {y1() + lineLength() * sin(radians()).toFloat()}
 
             drawLine(
                 color = YellowLittle,
-                start = Offset(x1, y1),
-                end = Offset(x2, y2),
-                strokeWidth = stroke,
+                start = Offset(x1(), y1()),
+                end = Offset(x2(), y2()),
+                strokeWidth = stroke(),
                 cap = StrokeCap.Round
             )
         }

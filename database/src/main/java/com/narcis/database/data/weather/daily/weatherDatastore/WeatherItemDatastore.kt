@@ -61,9 +61,9 @@ private fun List<WeatherEntity>.toDataWeather() : List<WeatherItem> {
          temp = this.temp,
          temp_min = this.tempMin,
          temp_max = this.tempMax,
-         name = this.name
-
-        )
+         name = this.name,
+        lat = this.lat,
+        lng = this.lng)
         }
 
 }

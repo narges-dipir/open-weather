@@ -8,5 +8,8 @@ data class WeatherItem(
      val temp : Double,
      val temp_min : Double,
      val temp_max : Double,
-    val name : String
+    val name : String,
+     val lat: Double,
+     val lng: Double
+
 )

@@ -2,6 +2,8 @@ package com.narcis.openweatherinterview.di
 
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
+import com.narcis.database.data.weather.daily.tableDao.WeatherDao
+import com.narcis.database.domain.weather.SaveWeatherItemUseCase
 import com.narcis.openweatherinterview.data.api.weather.GetNearByWeather
 import com.narcis.openweatherinterview.data.dataSource.*
 import com.narcis.openweatherinterview.data.repository.forecastRepository.GetForecastRepository
@@ -66,8 +68,12 @@ class WeatherApiProvider {
 //    }
 
     @Provides
-    fun provideGetWeatherRepository(weatherCurrentDataSource: WeatherCurrentDataSource):
-    IGetWeatherRepository = GetWeatherRepository(weatherCurrentDataSource)
+    fun provideGetWeatherRepository(weatherCurrentDataSource: WeatherCurrentDataSource,
+    weatherDao: WeatherDao,
+    saveWeatherItemUseCase: SaveWeatherItemUseCase):
+    IGetWeatherRepository = GetWeatherRepository(weatherCurrentDataSource,
+    weatherDao,
+    saveWeatherItemUseCase)
 
     @Provides
     fun provideGetForecastRepository(forecastDataSource: ForecastDataSource)

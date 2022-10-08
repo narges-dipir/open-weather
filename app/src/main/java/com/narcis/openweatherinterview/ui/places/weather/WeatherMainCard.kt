@@ -1,5 +1,6 @@
 package com.narcis.openweatherinterview.ui.places.weather
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,9 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.narcis.openweatherinterview.BuildConfig
 import com.narcis.openweatherinterview.R
 import com.narcis.openweatherinterview.ui.viewModel.ForecastViewModel
 import com.narcis.openweatherinterview.ui.viewModel.WeatherViewModel
@@ -26,6 +26,19 @@ import com.narcis.openweatherinterview.ui.viewUtiles.LoadingContent
 import com.narcis.openweatherinterview.ui.viewUtiles.verticalGradientScrim
 import com.narcis.openweatherinterview.ui.widgets.*
 
+class Ref(var value: Int)
+
+// Note the inline function below which ensures that this function is essentially
+// copied at the call site to ensure that its logging only recompositions from the
+// original call site.
+@Composable
+inline fun LogCompositions(tag: String, msg: String) {
+    if (BuildConfig.DEBUG) {
+        val ref = remember { Ref(0) }
+        SideEffect { ref.value++ }
+        Log.d(tag, "Compositions: $msg ${ref.value}")
+    }
+}
 @Preview
 @Composable
 fun mat() {
@@ -63,7 +76,8 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             .systemBarsPadding()
             .padding(horizontal = 8.dp)
     ) {
-        println("the errror " + errorWth.value)
+        LogCompositions("TAG", "MyComposable function")
+//        println("the errror " + errorWth.value)
         LoadingContent(loading = weeklyLoading) {
             // We dynamically theme this sub-section of the layout to match the selected
             // 'top podcast'
@@ -71,8 +85,8 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
             createVerticalChain(mainCard, weekCard, chainStyle = ChainStyle.Packed)
 
             allWth?.forEach {
-                println(" the ge is : " + it.description + " " + it.temp + " "
-                + it.name)
+//                println(" the ge is : " + it.description + " " + it.temp + " "
+//                + it.name)
             }
 
             LazyColumn(modifier = Modifier.constrainAs(mainCard) {
@@ -118,7 +132,6 @@ fun WeatherContent(weatherViewModel: WeatherViewModel, forecastViewModel: Foreca
 @Composable
 fun MainCard(id : Int,description: String, temp: Double,
              tempMax: Double, tempMin: Double, name : String) {
-
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -217,7 +230,7 @@ fun TopBar(onBackPress: () -> Unit) {
 }
 @Composable
 fun GetIconAnimation(id : Int, modifier: Modifier = Modifier) {
-println(" the iid is : " + id)
+//println(" the iid is : " + id)
     when (id) {
         200, 201, 202 -> Box(modifier = modifier) {
             AnimatableRains(

@@ -27,19 +27,11 @@ class  LocationRemoteDataSource @Inject constructor(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
-
         return flow {
-//            println(" until here ... ")
             checkLocationEnabled()
             fusedLocationProviderClient.lastLocation.await().let{
               emit(it.toDataModel())
             }
-//            fusedLocationProviderClient.getCurrentLocation(
-//                LocationRequest.PRIORITY_NO_POWER,
-//                cancellationToken
-//            ).await().let {
-//                emit(it.toDataModel())
-//            }
         }
     }
 

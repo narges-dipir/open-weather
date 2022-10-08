@@ -167,7 +167,7 @@ fun ForecastweeklyItem(weekItem: WeeklyItem) {
 @Composable
 fun previewLocationNoted() {
 
-    val weather = WeatherItem(22, "&&" , "77", 2.2, 2.2, 5.5, "fff")
+    val weather = WeatherItem(22, "&&" , "77", 2.2, 2.2, 5.5, "fff", 2.2, 3.3)
     val weeku = WeeklyItem(500,22.2F, 33.3F, "eeee")
 //    WeatherItem(weather)
     ForecastweeklyItem( weeku)
