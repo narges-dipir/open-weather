@@ -62,7 +62,6 @@ class WeatherViewModelTest {
         weatherViewModel = WeatherViewModel(
             getCurrentWeatherUseCase,
             getCurrentLocationUseCase,
-            saveWeatherItem,
             getAllWeatherItemsUseCase,
             getWeatherByNameUseCase
         )

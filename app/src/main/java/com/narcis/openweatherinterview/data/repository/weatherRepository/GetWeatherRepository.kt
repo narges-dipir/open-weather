@@ -39,16 +39,14 @@ class GetWeatherRepository @Inject constructor(
                 .collect { response: StoreResponse<WeatherEntity> ->
                     when(response) {
                         is StoreResponse.Loading -> {
-                            println(" **** loading ..")
                             emit(ResultWrapper.Loading)
                         }
                         is StoreResponse.Error -> {
-                            println(" **** error ...")
+                            val e: Exception = Exception()
+                            emit(ResultWrapper.Error(e))
                         }
                         is StoreResponse.Data -> {
-                            println("*** hereee")
                             val data = response.value
-                            println(" *** data is " + data)
                             emit(ResultWrapper.Success(data.mapToDataWeatherItem()))
                         }
                     }
@@ -72,7 +70,7 @@ class GetWeatherRepository @Inject constructor(
             )
     }
 
-    fun WeatherEntity.mapToDataWeatherItem(): WeatherItem {
+    private fun WeatherEntity.mapToDataWeatherItem(): WeatherItem {
         return WeatherItem(
             this.id,
             this.main,
