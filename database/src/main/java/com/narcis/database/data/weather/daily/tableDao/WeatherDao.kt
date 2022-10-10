@@ -1,6 +1,7 @@
 package com.narcis.database.data.weather.daily.tableDao
 
 import androidx.room.*
+import com.narcis.database.data.weather.daily.entities.ForecastEntity
 import com.narcis.database.data.weather.daily.entities.WeatherEntity
 import com.narcis.model.domain.ResultWrapper
 import com.narcis.model.weatherActions.LocationModel
@@ -12,8 +13,11 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveWeatherItem(weatherEntity: WeatherEntity)
 
-    @Query("SELECT * FROM ${WeatherEntity.WeatherSchema.TABLE_NAME}")
-    fun getWeatherItems() : Flow<List<WeatherEntity>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveForecastItem(weatherEntities: List<ForecastEntity>)
+
+    @Query("SELECT * FROM ${ForecastEntity.ForecastSchema.TABLE_NAME}")
+    fun getWeatherItems() : Flow<List<ForecastEntity>>
 
     @Query("SELECT * FROM ${WeatherEntity.WeatherSchema.TABLE_NAME} where " +
             "${WeatherEntity.WeatherSchema.NAME} = :name")

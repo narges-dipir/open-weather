@@ -19,23 +19,22 @@ class GetWeatherRepository @Inject constructor(
     private val weatherDao: WeatherDao,
     private val saveWeatherItem: SaveWeatherItemUseCase)
     : IGetWeatherRepository {
-    private val store: Store<LocationModel, WeatherEntity> = StoreBuilder.from(
-        fetcher = Fetcher.of {
-         iWeatherCurrentDataStore.getWeatherDataSource(it)
-        },
-        sourceOfTruth = SourceOfTruth.Companion.of(
-            reader = {key:LocationModel ->  weatherDao.getWeatherItemByLocation(key.lat, key.long)},
-            writer = { _: LocationModel, input: WeatherResponse ->
-                val currentWeather = input.mapWeatherToItem()
-                saveWeatherItem(currentWeather)
-            }
-        )
-    ).build()
-
+    
     override fun getWeatherRepository(latLong: LocationModel):
             Flow<ResultWrapper<WeatherItem>> {
         return flow {
-            store.stream(StoreRequest.cached(key = latLong, refresh = false))
+            StoreBuilder.from(
+                fetcher = Fetcher.of {
+                    iWeatherCurrentDataStore.getWeatherDataSource(it)
+                },
+                sourceOfTruth = SourceOfTruth.Companion.of(
+                    reader = {key:LocationModel ->  weatherDao.getWeatherItemByLocation(key.lat, key.long)},
+                    writer = { _: LocationModel, input: WeatherResponse ->
+                        val currentWeather = input.mapWeatherToItem()
+                        saveWeatherItem(currentWeather)
+                    }
+                )
+            ).build().stream(StoreRequest.cached(key = latLong, refresh = false))
                 .collect { response: StoreResponse<WeatherEntity> ->
                     when(response) {
                         is StoreResponse.Loading -> {

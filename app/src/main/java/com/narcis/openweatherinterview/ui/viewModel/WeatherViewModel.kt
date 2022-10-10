@@ -27,7 +27,6 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     getCurrentLocationUseCase: GetCurrentLocationUseCase,
-    private val getAllWeatherItemsUseCase: GetAllWeatherItemsUseCase,
     private val getWeatherByNameUseCase: GetWeatherByNameUseCase
 ): ViewModel() {
     private val getWeather = MutableSharedFlow<LatLng?>()
@@ -73,7 +72,6 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
 
 
     init {
-        getAllWeathers()
     viewModelScope.launch {
 
     viewState.filter {
@@ -95,20 +93,6 @@ val isLoading: StateFlow<Boolean> = viewState.mapLatest {
         viewModelScope.launch {
             getWeather.emit(null)
         }
-    }
-
-
-
-    private fun getAllWeathers()  {
-        viewModelScope.launch {
-            getAllWeatherItemsUseCase(Unit).collect{
-                if (it.data.isNullOrEmpty()) {
-                    _getAllState.value = null
-                } else
-                    _getAllState.value = it.data
-            }
-        }
-
     }
 
     private fun getWeatherByName(name: String) {

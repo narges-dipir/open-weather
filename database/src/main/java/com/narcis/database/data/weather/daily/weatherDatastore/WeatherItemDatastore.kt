@@ -1,9 +1,12 @@
 package com.narcis.database.data.weather.daily.weatherDatastore
 
+import androidx.room.Entity
+import com.narcis.database.data.weather.daily.entities.ForecastEntity
 import com.narcis.database.data.weather.daily.entities.WeatherEntity
 import com.narcis.database.data.weather.daily.tableDao.WeatherDao
 import com.narcis.database.data.weather.db.WeatherItemMapper
 import com.narcis.model.domain.ResultWrapper
+import com.narcis.model.weatherActions.ForecastItem
 import com.narcis.model.weatherActions.WeatherItem
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -25,28 +28,36 @@ internal class WeatherItemDatastore @Inject constructor(
        )
     }
 
-    override fun getWeatherItem(): Flow<ResultWrapper<List<WeatherItem>>> {
-        return weatherDao.getWeatherItems().toListDataWeatherFlow()
+    override fun getForecastItems(): Flow<ResultWrapper<List<ForecastItem>>> {
+        return weatherDao.getWeatherItems().toListDataForecastFlow()
     }
 
+    override suspend fun saveForecastItems(forecastItems: List<ForecastItem>) {
+        weatherDao.saveForecastItem(
+            withContext(ioDispatcher){
+                forecastItems.map {
+                    weatherItemMapper.mapToDatabaseForecast(it)
+                }
+            }
+        )
+    }
 
     override fun getWeatherItemByName(name: String): Flow<ResultWrapper<WeatherItem>> {
         return weatherDao.getWeatherItemByName(name).toDataWeatherFlow()
     }
 
-
-    private fun Flow<List<WeatherEntity>>.toListDataWeatherFlow() : Flow<ResultWrapper<List<WeatherItem>>> {
+    private fun Flow<List<ForecastEntity>>.toListDataForecastFlow() : Flow<ResultWrapper<List<ForecastItem>>> {
         return this.map { items ->
-        ResultWrapper.Success(items.toDataWeather())
+            ResultWrapper.Success(items.toDataForecast())
 
         }
     }
 
-private fun List<WeatherEntity>.toDataWeather() : List<WeatherItem> {
-    return this.map {
-        weatherItemMapper.mapToDataWeatherItem(it)
+    private fun List<ForecastEntity>.toDataForecast() : List<ForecastItem> {
+        return this.map {
+            weatherItemMapper.maptoDataForecastItem(it)
+        }
     }
-}
     private fun Flow<WeatherEntity>.toDataWeatherFlow() : Flow<ResultWrapper<WeatherItem>> {
         return this.map { items ->
             ResultWrapper.Success(items.toWeather())
