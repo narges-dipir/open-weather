@@ -19,7 +19,7 @@ class GetWeatherRepository @Inject constructor(
     private val weatherDao: WeatherDao,
     private val saveWeatherItem: SaveWeatherItemUseCase)
     : IGetWeatherRepository {
-    
+
     override fun getWeatherRepository(latLong: LocationModel):
             Flow<ResultWrapper<WeatherItem>> {
         return flow {
@@ -45,8 +45,7 @@ class GetWeatherRepository @Inject constructor(
                             emit(ResultWrapper.Error(e))
                         }
                         is StoreResponse.Data -> {
-                            val data = response.value
-                            emit(ResultWrapper.Success(data.mapToDataWeatherItem()))
+                            emit(ResultWrapper.Success(response.value.mapToDataWeatherItem()))
                         }
                     }
 

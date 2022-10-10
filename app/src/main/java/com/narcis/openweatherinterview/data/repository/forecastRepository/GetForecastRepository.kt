@@ -45,11 +45,7 @@ class GetForecastRepository @Inject constructor(
                             emit(ResultWrapper.Error(e))
                         }
                         is StoreResponse.Data -> {
-                            val data = response.value
-                            data.toForecastItemList().forEach {
-                                println("****  ${it}")
-                            }
-                            emit(ResultWrapper.Success(data.toForecastItemList()))
+                            emit(ResultWrapper.Success(response.value.toForecastItemList()))
                         }
                     }
                 }
